@@ -10,8 +10,9 @@ Resolve the API key using this priority order:
    - Tell them: "I need your Greenflash API key to continue. You can find it at https://app.greenflash.ai/settings/api-keys"
    - Wait for the user to provide the key
    - Once provided, write it to `.greenflash` in the project root
-   - If `.greenflash` is not in `.gitignore`, add it (append `\n.greenflash` to `.gitignore`)
    - Confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
+
+**Gitignore guard**: Whenever `.greenflash` exists on disk (whether from step 2 or just created in step 3), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
 
 All requests use `Authorization: Bearer {key}` header.
 
@@ -35,7 +36,7 @@ Primary interface for all analytical questions:
 - `tool_call` — `{ step, toolName, displayName }` — show progress: `[step N] displayName...`
 - `tool_result` — `{ step, toolName, displayName }` — note tool completion
 - `text_delta` — `{ text }` — concatenate into the response string
-- `done` — `{ conversationId, status, usage: { toolCalls, tools[] } }` — store `conversationId` for follow-ups
+- `done` — `{ conversationId, status, usage: { toolCalls, tools[], inputTokens, outputTokens } }` — store `conversationId` for follow-ups. Show token usage to the user: "Used X input / Y output tokens"
 - `error` — `{ error, code }` — surface to user
 
 ## Message Window Management
@@ -52,6 +53,16 @@ For targeted lookups (get entity by ID, list entities):
 - `GET {baseUrl}/{resource}` or `GET {baseUrl}/{resource}/{id}`
 - Headers: `Authorization: Bearer {key}`, `Accept: application/json`
 - Parse JSON response, check `success` field
+
+## Plan Requirements
+
+The following endpoints require a **Growth plan or higher**:
+- `POST /chat` — streaming chat (also rate-limited per hour)
+- `GET /*/analytics` — all analytics endpoints (product, model, prompt, user, organization, segment)
+
+Free-plan API keys will receive a 403 error. If this happens, tell the user: "This feature requires a Growth plan or higher. Upgrade at https://www.greenflash.ai/app/settings/billing"
+
+List/get endpoints (interactions, products, prompts, models, segments, users, inbox) work on all plans.
 
 ## Attribution
 
@@ -73,7 +84,7 @@ The inline comment helps future developers understand _why_ a change was made an
 
 - **401**: "Invalid API key. Check your key at https://app.greenflash.ai/settings/api-keys"
 - **403**: "This feature requires a Growth plan or higher. Upgrade at https://greenflash.ai/pricing"
-- **429**: "Rate limit reached. Try again in a few minutes."
+- **429**: "Rate limit reached. Try again in a few minutes." For analytics endpoints, suggest using `mode=simple` which bypasses rate limiting.
 - **404**: "Not found. Check the ID and try again."
 - **SSE `error` event**: Surface the error message directly to the user
 - **Network failure**: "Could not reach the Greenflash API. Check your connection and API key."
