@@ -7,7 +7,7 @@ Resolve the API key using this priority order:
 1. **Environment variable**: Check `$GREENFLASH_API_KEY`
 2. **Project config file**: Read the first line of `.greenflash` in the project root (via `cat .greenflash 2>/dev/null`)
 3. **Interactive setup**: If neither exists, prompt the user:
-   - Tell them: "I need your Greenflash API key to continue. You can find it at https://app.greenflash.ai/settings/api-keys"
+   - Tell them: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
    - Wait for the user to provide the key
    - Once provided, write it to `.greenflash` in the project root
    - Confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
@@ -18,9 +18,22 @@ All requests use `Authorization: Bearer {key}` header.
 
 ## API Base URL
 
-`https://app.greenflash.ai/api/v1`
+`https://www.greenflash.ai/api/v1`
 
 > **Local development**: Override with `$GREENFLASH_API_URL` if you're running the API locally.
+
+## Request Execution Rules
+
+**Use the URL exactly as specified above.** Do not guess alternative subdomains (e.g., `app.greenflash.ai`, `api.greenflash.ai`). Do not verify, probe, or test the URL before making the actual request. Just call it.
+
+**Keep API calls clean:**
+- Use `curl -sS --fail-with-body` for all requests — this suppresses progress bars and only shows the response body (or error body on failure)
+- For SSE streams, use `curl -sS -N` (unbuffered) — do not add `-v` or `--verbose`
+- Never use `-X POST` when `-d` is present (curl infers POST automatically)
+- Do not pipe through `head`, `tail`, or `2>&1` — let the response speak for itself
+- Do not announce or narrate the API call (no "Let me verify the endpoint" or "Checking API accessibility"). Just make the request silently and present the result
+
+**If a request fails:** Show the HTTP status code and error message from the response body. Do not retry with verbose flags or alternative URLs — follow the error handling rules below instead.
 
 ## Chat API Pattern
 
@@ -32,12 +45,24 @@ Primary interface for all analytical questions:
 - `messages` is an array of `{ "role": "user" | "assistant", "content": "..." }` from prior turns
 - `conversationId` is omitted on first turn, captured from `done` event
 
+**Example:**
+```bash
+curl -sS -N \
+  -H "Authorization: Bearer $KEY" \
+  -H "Accept: text/event-stream" \
+  -H "Content-Type: application/json" \
+  -d '{"question":"..."}' \
+  "https://www.greenflash.ai/api/v1/chat"
+```
+
 **SSE Events:**
 - `tool_call` — `{ step, toolName, displayName }` — show progress: `[step N] displayName...`
 - `tool_result` — `{ step, toolName, displayName }` — note tool completion
 - `text_delta` — `{ text }` — concatenate into the response string
 - `done` — `{ conversationId, status, usage: { toolCalls, tools[], inputTokens, outputTokens } }` — store `conversationId` for follow-ups. Show token usage to the user: "Used X input / Y output tokens"
 - `error` — `{ error, code }` — surface to user
+
+**Presenting SSE output:** Parse the raw SSE stream yourself — do not show the raw `event:` / `data:` lines to the user. Show only the progress steps and the final concatenated response text. If the stream returns an error event, show the error message, not the raw SSE frame.
 
 ## Message Window Management
 
@@ -62,16 +87,18 @@ All list endpoints (`/interactions`, `/products`, `/prompts`, `/models`, `/segme
 - **Response body:** A flat JSON array of items (not wrapped in an object)
 - **Pagination info:** Returned in the `Link` HTTP header using RFC 8288 format:
   ```
-  Link: <https://app.greenflash.ai/api/v1/interactions?page=2&limit=50>; rel="next"
+  Link: <https://www.greenflash.ai/api/v1/interactions?page=2&limit=50>; rel="next"
   ```
 - **No `next` link** means you're on the last page
 - To paginate: parse the `Link` header, extract the `rel="next"` URL, and fetch it
 
 **Example:**
 ```bash
-curl -H "Authorization: Bearer $KEY" "https://app.greenflash.ai/api/v1/interactions?page=1&limit=50"
+curl -sS --fail-with-body \
+  -H "Authorization: Bearer $KEY" \
+  "https://www.greenflash.ai/api/v1/interactions?page=1&limit=50"
 # Response: [...items...]
-# Link: <.../interactions?page=2&limit=50>; rel="next"
+# Link header: <.../interactions?page=2&limit=50>; rel="next"
 ```
 
 For creating resources:
@@ -134,8 +161,8 @@ The inline comment helps future developers understand _why_ a change was made an
 
 ## Error Handling
 
-- **401**: "Invalid API key. Check your key at https://app.greenflash.ai/settings/api-keys"
-- **403**: "This feature requires a Growth plan or higher. Upgrade at https://greenflash.ai/pricing"
+- **401**: "Invalid API key. Check your key at https://www.greenflash.ai/app/settings/developers?section=api-keys"
+- **403**: "This feature requires a Growth plan or higher. Upgrade at https://www.greenflash.ai/app/settings/billing"
 - **429**: "Rate limit reached. Try again in a few minutes." For analytics endpoints, suggest using `mode=simple` which bypasses rate limiting.
 - **404**: "Not found. Check the ID and try again."
 - **SSE `error` event**: Surface the error message directly to the user

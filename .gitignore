@@ -1,2 +1,5 @@
 # Superpowers plans, etc.
 docs
+
+# Local Claude Plugin
+.claude/

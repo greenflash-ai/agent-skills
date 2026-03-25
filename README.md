@@ -49,4 +49,4 @@ export GREENFLASH_API_URL=http://localhost:3000/api/v1
 
 ## Documentation
 
-Full API and plugin documentation: https://greenflash.ai/docs/features/public-api
+Full API and plugin documentation: https://docs.greenflash.ai/features/claude-code-skill
