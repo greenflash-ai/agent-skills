@@ -1,6 +1,6 @@
 # Greenflash Agent Skills
 
-Greenflash brings conversational analytics directly into your AI coding agent. Ask natural-language questions about your AI products and get instant answers — health checks, inbox triage, user insights, prompt optimization, and diagnostics — all without leaving your editor.
+Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and which interactions drive upgrades or churn. These skills bring that intelligence directly into your coding agent so you can ask questions, get answers, and implement fixes without leaving your editor.
 
 ## Installation
 
@@ -23,21 +23,21 @@ No environment setup required. On first run, the skill will ask for your API key
 
 | Skill | Description |
 |-------|-------------|
-| `greenflash` | Entry point — routes your question to the right workflow or handles it directly |
-| `greenflash-health` | Product health checks, quality trends, overviews, and anomaly detection |
-| `greenflash-inbox` | Inbox triage, flagged conversations, and review queue management |
-| `greenflash-users` | User insights, segments, frustrated or churning user identification |
-| `greenflash-prompts` | Prompt analysis, model comparison, optimization — and direct implementation of fixes |
-| `greenflash-diagnose` | Root cause analysis, failing tool detection, and automated fix implementation |
+| `greenflash` | Entry point. Routes your question to the right workflow or handles it directly |
+| `greenflash-health` | Surface quality trends, anomalies, safety issues, and sentiment across your products |
+| `greenflash-inbox` | Triage flagged conversations, prioritized by severity |
+| `greenflash-users` | Understand user behavior: who's struggling, who's churning, and what segments look like |
+| `greenflash-prompts` | Find prompt and model quality issues, get optimization recommendations, and apply fixes |
+| `greenflash-diagnose` | Root cause analysis for failing tools, user friction, and guardrail violations. Implements fixes directly |
 
 ### SDK Integration
 
 | Skill | Description |
 |-------|-------------|
-| `greenflash-onboard` | Set up the Greenflash SDK — install, create client, wire message logging (Python & TypeScript) |
-| `greenflash-onboard-prompts` | Add system prompt logging for prompt optimization and versioning |
-| `greenflash-onboard-agentic` | Add structured message types for agent tool calls, reasoning, and workflows |
-| `greenflash-onboard-events` | Track business events — link AI conversations to conversions, upgrades, and churn |
+| `greenflash-onboard` | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 35 minutes (Python & TypeScript) |
+| `greenflash-onboard-prompts` | Log system prompts for automatic versioning and optimization |
+| `greenflash-onboard-agentic` | Log structured message types for agent tool calls, reasoning traces, and workflows |
+| `greenflash-onboard-events` | Track business events and link AI conversations to real outcomes like conversions and churn |
 
 ## Local Development
 

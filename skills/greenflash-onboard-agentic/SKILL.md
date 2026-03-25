@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-agentic
-description: Upgrade an existing Greenflash SDK integration to support agentic workflows with structured message types, tool calls, and reasoning traces. Use when the user has Greenflash integrated and wants to log agent tool calls, reasoning steps, chain-of-thought, or structured message types instead of plain text.
+description: Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Gives Greenflash richer visibility into agent behavior for analysis and optimization. Use when the user has Greenflash integrated and wants to log agent tool calls, reasoning steps, chain-of-thought, or structured messages instead of plain text.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -14,7 +14,7 @@ Read `../greenflash-config.md` (relative to this skill's directory) for authenti
 
 ## Purpose
 
-This skill upgrades an **existing** Greenflash SDK integration to support **agentic workflows** — structured message types for tool calls, reasoning steps, observations, and multi-step chains. This gives Greenflash richer visibility into agent behavior for analysis, visualization, and optimization.
+This skill upgrades an **existing** Greenflash SDK integration to support **agentic workflows** with structured message types for tool calls, reasoning steps, observations, and multi-step chains. This gives Greenflash richer visibility into agent behavior so it can surface the silent failures that evals miss: tools that fail quietly, reasoning that loops, and steps that confuse users.
 
 **Prerequisite:** The codebase must already have a working Greenflash integration (client + message logging). If not, run `/greenflash:greenflash-onboard` first.
 

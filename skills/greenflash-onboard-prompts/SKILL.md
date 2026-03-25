@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-prompts
-description: Upgrade an existing Greenflash SDK integration to log system prompts for prompt optimization, versioning, and component-level analysis. Use when the user already has Greenflash integrated and wants to start logging system prompts, track prompt versions, add prompt components, or enable prompt optimization features.
+description: Log system prompts for automatic versioning and component-level optimization. Upgrades an existing Greenflash integration. Use when the user already has Greenflash integrated and wants to start logging system prompts, track prompt versions, add prompt components, or enable prompt optimization.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -14,7 +14,7 @@ Read `../greenflash-config.md` (relative to this skill's directory) for authenti
 
 ## Purpose
 
-This skill upgrades an **existing** Greenflash SDK integration to log **system prompts** alongside conversation messages. This enables Greenflash to automatically version, analyze, and optimize system prompts based on real conversation data.
+This skill upgrades an **existing** Greenflash SDK integration to log **system prompts** alongside conversation messages. Once logged, Greenflash automatically versions, analyzes, and optimizes your prompts based on real conversation data. Not just what's wrong with your prompts, but what to change.
 
 **Prerequisite:** The codebase must already have a working Greenflash integration (client + message logging). If not, run `/greenflash:greenflash-onboard` first.
 
@@ -224,4 +224,4 @@ Inspect the existing codebase:
 - Dynamic data and variables logged properly
 - No disruption to existing message logging behavior
 
-This unlocks Greenflash's prompt optimization capabilities across your AI products.
+This unlocks prompt optimization based on real conversation data, so improvements come from what users actually experience, not just internal testing.

@@ -1,6 +1,6 @@
 ---
 name: greenflash-prompts
-description: Evaluate prompt and model performance — quality issues, optimization recommendations, model comparison. Use whenever the user asks about prompt quality, model performance, hallucination rates, which model to use, how to optimize prompts, or wants to compare models. Also triggers when the user wants to fix or improve a prompt based on data.
+description: Find prompt and model quality issues using real conversation data. Not just what's wrong, but what to change. Use whenever the user asks about prompt quality, model performance, hallucination rates, which model to use, how to optimize prompts, or wants to compare models. Also triggers when the user wants to fix or improve a prompt based on data.
 argument-hint: prompt name/ID, model name, or general question
 license: MIT
 metadata:
@@ -40,7 +40,7 @@ When the user asks for a prompt's content (not analytics), use REST directly:
 
 ## Implementation
 
-After presenting optimization recommendations, offer to implement them directly. Ask the user: **"Want me to apply these changes?"**
+After presenting optimization recommendations, offer to implement them directly. Every insight comes with a specific improvement. Ask the user: **"Want me to apply these changes?"**
 
 If yes, use tools to make the edits:
 

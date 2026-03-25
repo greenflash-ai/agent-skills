@@ -1,6 +1,6 @@
 ---
 name: greenflash-health
-description: Check your product health — quality trends, anomalies, safety issues, and sentiment. Use whenever the user asks about product status, quality scores, how things are going, what's trending, safety violations, sentiment shifts, or wants a general health check on their AI products.
+description: Surface quality trends, anomalies, safety issues, and sentiment across your AI products. Use whenever the user asks about product status, quality scores, how things are going, what's trending, safety violations, sentiment shifts, or wants a health check on their AI products.
 argument-hint: optional product name or UUID
 license: MIT
 metadata:

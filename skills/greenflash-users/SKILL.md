@@ -1,6 +1,6 @@
 ---
 name: greenflash-users
-description: Understand user behavior — individual lookups, segment health, and cohort analysis. Use whenever the user asks about a specific user, wants to see segments, asks who's frustrated or churning, wants to create a user segment, compare cohorts, or look up user activity and sentiment.
+description: Understand user behavior from real conversations. Individual lookups, segment health, and cohort analysis. Use whenever the user asks about a specific user, wants to see segments, asks who's frustrated or churning, wants to create a user segment, compare cohorts, or look up user activity and sentiment.
 argument-hint: user email/name, segment name, or general question
 license: MIT
 metadata:
