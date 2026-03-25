@@ -17,12 +17,7 @@ claude marketplace add https://github.com/greenflash-ai/agent-skills
 claude plugin install greenflash
 ```
 
-## Environment Setup
-
-```bash
-export GREENFLASH_API_KEY=gf_...           # Required
-export GREENFLASH_API_URL=https://...      # Optional: override for staging or local dev
-```
+No environment setup required. On first run, the skill will ask for your API key and save it to the project automatically.
 
 ## Skills
 
@@ -32,8 +27,16 @@ export GREENFLASH_API_URL=https://...      # Optional: override for staging or l
 | `greenflash-health` | Product health checks, quality trends, overviews, and anomaly detection |
 | `greenflash-inbox` | Inbox triage, flagged conversations, and review queue management |
 | `greenflash-users` | User insights, segments, frustrated or churning user identification |
-| `greenflash-prompts` | Prompt analysis, model comparison, and optimization recommendations |
-| `greenflash-diagnose` | Root cause analysis, failing tool detection, and fix suggestions |
+| `greenflash-prompts` | Prompt analysis, model comparison, optimization — and direct implementation of fixes |
+| `greenflash-diagnose` | Root cause analysis, failing tool detection, and automated fix implementation |
+
+## Local Development
+
+If you're running the Greenflash API locally, set `GREENFLASH_API_URL` to override the default production URL:
+
+```bash
+export GREENFLASH_API_URL=http://localhost:3000/api/v1
+```
 
 ## Documentation
 

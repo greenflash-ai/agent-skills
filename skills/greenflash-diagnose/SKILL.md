@@ -45,11 +45,26 @@ When the user asks for evidence (e.g., "show me an example conversation"):
 3. Stream SSE events with progress indicators
 4. Present issues as a prioritized list with severity, impact, and resolution steps
 
+## Implementation
+
+After presenting a diagnosis, don't just suggest — offer to implement the fix. Ask the user: **"Want me to implement this fix?"**
+
+If yes, use Claude Code's tools to make the changes:
+
+- **Failing tool / broken code path**: Use Grep and Glob to find the relevant source code in the local project. Read the file, identify the bug or misconfiguration, and use Edit to fix it. Show a diff summary of what changed.
+- **Prompt quality issue**: Locate the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or config references). Edit the prompt text directly — add guardrails, improve instructions, fix hallucination-prone sections.
+- **Guardrail violation**: Find where the guardrail or validation logic lives. Tighten the check, add missing validation, or update the prompt to avoid triggering the violation.
+- **Model configuration issue**: Find the model config (environment variables, config files, or code constants) and update it.
+- **Missing error handling**: Add proper error handling, fallback responses, or user-facing messages where the diagnosis identified gaps.
+
+Always present the diagnosis first, then offer to implement. Never make changes without user confirmation.
+
 ## Follow-up Patterns
 
 - "Show me proof of [specific failure]" -> agent pulls example conversations
 - "Which users are most affected?" -> agent uses `getUserRanking`
-- "Fix the prompt" -> suggest specific changes or invoke greenflash-prompts
+- "Fix the prompt" -> locate and edit the prompt file directly
+- "Fix this" -> search the codebase for the relevant code and apply the fix
 - "Show me the full conversation" -> REST call to `GET {baseUrl}/interactions/{id}`
 
 Continue in the same Chat conversation for all follow-ups.
