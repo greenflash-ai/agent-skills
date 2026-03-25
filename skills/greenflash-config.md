@@ -54,6 +54,26 @@ For targeted lookups (get entity by ID, list entities):
 - Headers: `Authorization: Bearer {key}`, `Accept: application/json`
 - Parse JSON response, check `success` field
 
+### Pagination (List Endpoints)
+
+All list endpoints (`/interactions`, `/products`, `/prompts`, `/models`, `/segments`, `/users`, `/inbox`) use **Link header pagination**:
+
+- **Query params:** `page` (default 1), `limit` (default varies by endpoint, max 100)
+- **Response body:** A flat JSON array of items (not wrapped in an object)
+- **Pagination info:** Returned in the `Link` HTTP header using RFC 8288 format:
+  ```
+  Link: <https://app.greenflash.ai/api/v1/interactions?page=2&limit=50>; rel="next"
+  ```
+- **No `next` link** means you're on the last page
+- To paginate: parse the `Link` header, extract the `rel="next"` URL, and fetch it
+
+**Example:**
+```bash
+curl -H "Authorization: Bearer $KEY" "https://app.greenflash.ai/api/v1/interactions?page=1&limit=50"
+# Response: [...items...]
+# Link: <.../interactions?page=2&limit=50>; rel="next"
+```
+
 For creating resources:
 - `POST {baseUrl}/{resource}`
 - Headers: `Authorization: Bearer {key}`, `Content-Type: application/json`
