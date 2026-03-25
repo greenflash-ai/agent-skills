@@ -2,6 +2,10 @@
 name: greenflash-users
 description: Understand user behavior — individual lookups, segment health, and cohort analysis
 argument-hint: user email/name, segment name, or general question
+license: MIT
+metadata:
+  author: greenflash-ai
+  version: "1.0.0"
 ---
 
 # Greenflash User & Segment Intelligence

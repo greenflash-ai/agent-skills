@@ -2,6 +2,10 @@
 name: greenflash-prompts
 description: Evaluate prompt and model performance — quality issues, optimization recommendations, model comparison
 argument-hint: prompt name/ID, model name, or general question
+license: MIT
+metadata:
+  author: greenflash-ai
+  version: "1.0.0"
 ---
 
 # Greenflash Prompt & Model Optimization
