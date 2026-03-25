@@ -7,7 +7,7 @@
     "email": "support@greenflash.ai"
   },
   "homepage": "https://greenflash.ai/docs/features/public-api",
-  "repository": "https://github.com/greenflash-ai/claude-plugin",
+  "repository": "https://github.com/greenflash-ai/agent-skills",
   "license": "MIT",
   "keywords": [
     "ai",

@@ -5,7 +5,7 @@
     "email": "support@greenflash.ai"
   },
   "metadata": {
-    "description": "Official Greenflash plugin for Claude Code"
+    "description": "Official Greenflash agent skills for AI-powered product optimization"
   },
   "plugins": [
     {

@@ -1,11 +1,19 @@
-# Greenflash Plugin for Claude Code
+# Greenflash Agent Skills
 
-Greenflash brings conversational analytics directly into your Claude Code session. Ask natural-language questions about your AI products and get instant answers — health checks, inbox triage, user insights, prompt optimization, and diagnostics — all without leaving your editor.
+Greenflash brings conversational analytics directly into your AI coding agent. Ask natural-language questions about your AI products and get instant answers — health checks, inbox triage, user insights, prompt optimization, and diagnostics — all without leaving your editor.
 
 ## Installation
 
+### Any Agent (Skills CLI)
+
 ```bash
-claude marketplace add https://github.com/greenflash-ai/claude-plugin
+npx skills add greenflash-ai/agent-skills
+```
+
+### Claude Code (Marketplace)
+
+```bash
+claude marketplace add https://github.com/greenflash-ai/agent-skills
 claude plugin install greenflash
 ```
 

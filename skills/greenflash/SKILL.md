@@ -2,6 +2,10 @@
 name: greenflash
 description: Query your Greenflash workspace — product health, inbox triage, user insights, prompt optimization, and diagnostics
 argument-hint: your question (e.g. "how are my products doing?")
+license: MIT
+metadata:
+  author: greenflash-ai
+  version: "1.0.0"
 ---
 
 # Greenflash Router

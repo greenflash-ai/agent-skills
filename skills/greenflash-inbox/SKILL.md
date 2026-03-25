@@ -2,6 +2,10 @@
 name: greenflash-inbox
 description: Triage your review inbox — flagged conversations prioritized by severity
 argument-hint: optional filter (e.g. "guardrail violations", "high severity")
+license: MIT
+metadata:
+  author: greenflash-ai
+  version: "1.0.0"
 ---
 
 # Greenflash Inbox Triage
