@@ -1,0 +1,52 @@
+---
+name: greenflash
+description: Query your Greenflash workspace — product health, inbox triage, user insights, prompt optimization, and diagnostics
+argument-hint: your question (e.g. "how are my products doing?")
+---
+
+# Greenflash Router
+
+Read `skills/greenflash-config.md` for authentication, API patterns, and error handling before proceeding.
+
+## Your Role
+
+You are the entry point for all Greenflash queries. Classify the user's intent and either delegate to a sub-skill or handle directly via the Chat API.
+
+## Intent Classification
+
+Classify the user's question into one of these workflows:
+
+| If the question is about... | Invoke |
+|----------------------------|--------|
+| Product health, quality trends, overview, status, anomalies | `/greenflash:greenflash-health` |
+| Inbox, flagged items, triage, needs attention, review queue | `/greenflash:greenflash-inbox` |
+| Users, a specific user, segments, frustrated/churning users, cohorts | `/greenflash:greenflash-users` |
+| Prompts, models, optimization, performance, model comparison | `/greenflash:greenflash-prompts` |
+| What's broken, failing tools, root causes, diagnosis, fixes | `/greenflash:greenflash-diagnose` |
+
+**When intent is ambiguous** (matches multiple workflows, or you're not sure): do NOT guess. Send the question directly to the Chat API as a general question. The Chat agent handles cross-cutting questions well.
+
+## General Questions (No Workflow Match)
+
+For questions that don't match a workflow, send directly to the Chat API:
+
+1. Check authentication per the shared config
+2. `POST {baseUrl}/chat` with the user's question
+3. Stream SSE events, showing `[step N] displayName...` for tool calls
+4. Concatenate `text_delta` events into the response
+5. On `done`, store `conversationId` for follow-up turns
+6. Present the response to the user
+
+## Session Management
+
+You own the conversation state. Track:
+- `conversationId` — captured from the first `done` event
+- `messages` — rolling array of `{role, content}` pairs
+
+Pass these through to sub-skills when delegating. When the user explicitly switches topics (e.g., from health to inbox), reset both `conversationId` and `messages`.
+
+Apply the message window management rules from the shared config.
+
+## Follow-ups
+
+If the user's message is a follow-up to a prior question (continuing the same topic), reuse the existing `conversationId` and append to `messages`. Do not re-classify — continue in the same workflow or general context.

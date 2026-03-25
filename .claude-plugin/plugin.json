@@ -1,0 +1,19 @@
+{
+  "name": "greenflash",
+  "description": "Improve AI products using real user conversations: uncover product issues, triage critical interactions, optimize prompts, and surface user insights",
+  "version": "1.0.0",
+  "author": {
+    "name": "Greenflash AI",
+    "email": "support@greenflash.ai"
+  },
+  "homepage": "https://greenflash.ai/docs/features/public-api",
+  "repository": "https://github.com/greenflash-ai/claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "ai",
+    "product-optimization",
+    "user-insights",
+    "prompt-optimization",
+    "conversation-insights"
+  ]
+}

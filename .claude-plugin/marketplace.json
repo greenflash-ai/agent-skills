@@ -1,0 +1,25 @@
+{
+  "name": "greenflash-plugins",
+  "owner": {
+    "name": "Greenflash AI",
+    "email": "support@greenflash.ai"
+  },
+  "metadata": {
+    "description": "Official Greenflash plugin for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "greenflash",
+      "source": "./",
+      "description": "Analyze real user conversations to find product issues, improve prompts, uncover UX gaps, and raise AI quality",
+      "category": "insights",
+      "tags": [
+        "ai-product-optimization",
+        "conversation-insights",
+        "prompt-optimization",
+        "user-experience",
+        "user-insights"
+      ]
+    }
+  ]
+}
