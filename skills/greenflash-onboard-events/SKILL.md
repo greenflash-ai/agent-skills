@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-events
-description: Add business event tracking to an existing Greenflash SDK integration — link AI interactions to real business outcomes like conversions, upgrades, and churn
+description: Track business events and link AI conversations to real outcomes like conversions, upgrades, and churn. Closes the loop between conversation quality and business impact. Use when the user has Greenflash integrated and wants to track business events, link conversations to outcomes, measure conversion impact, or attribute revenue to AI interactions.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -10,11 +10,11 @@ metadata:
 
 # Greenflash Business Event Tracking
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Purpose
 
-This skill extends an **existing** Greenflash SDK integration to track **business events** — connecting AI interactions to real business outcomes like conversions, upgrades, and churn. Events close the loop between conversation quality and business impact.
+This skill extends an **existing** Greenflash SDK integration to track **business events**, connecting AI conversations to real outcomes like conversions, upgrades, and churn. Events close the loop between conversation quality and business impact, so you can see which interactions actually drive revenue and which ones lose customers.
 
 **Prerequisite:** The codebase must already have a working Greenflash integration (client + message logging). If not, run `/greenflash:greenflash-onboard` first.
 
@@ -31,9 +31,9 @@ If an argument is provided, use that.
 
 ## Why Track Events?
 
-- **Attribute Success:** Link specific AI responses directly to business outcomes
-- **Validate Quality:** Confirm heuristic signals (sentiment) with tangible outcome data
-- **Deepen Insights:** Identify conversation patterns that drive real-world results
+- **Attribute success to conversations:** Link specific AI interactions directly to business outcomes
+- **Move beyond sentiment scores:** Confirm heuristic signals with tangible outcome data
+- **Find what actually drives results:** Identify conversation patterns that lead to conversions, upgrades, or churn
 
 ---
 
@@ -426,4 +426,4 @@ client.events.create({
 4. **Value tracking** for revenue-related events
 5. **No disruption** to existing message logging behavior
 
-This enables Greenflash to connect AI interactions to real business outcomes, validating conversation quality with tangible results.
+This closes the loop between conversation quality and business impact, so Greenflash can tell you not just where users struggle but whether those struggles cost you revenue.

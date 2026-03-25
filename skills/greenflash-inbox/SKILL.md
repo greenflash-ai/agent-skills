@@ -1,6 +1,6 @@
 ---
 name: greenflash-inbox
-description: Triage your review inbox — flagged conversations prioritized by severity
+description: Triage flagged conversations prioritized by severity. Surfaces the interactions that need human attention so you stop flying blind. Use whenever the user asks what needs review, what's flagged, what needs attention, wants to see guardrail violations, or asks about conversations flagged for review.
 argument-hint: optional filter (e.g. "guardrail violations", "high severity")
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Inbox Triage
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

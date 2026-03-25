@@ -1,6 +1,6 @@
 {
   "name": "greenflash",
-  "description": "Improve AI products using real user conversations: uncover product issues, triage critical interactions, optimize prompts, and surface user insights",
+  "description": "Analyze real user-agent conversations to surface where users get blocked, which flows fail, and what to change. Health checks, inbox triage, user insights, prompt optimization, and diagnostics.",
   "version": "1.0.0",
   "author": {
     "name": "Greenflash AI",

@@ -5,13 +5,13 @@
     "email": "support@greenflash.ai"
   },
   "metadata": {
-    "description": "Official Greenflash agent skills for AI-powered product optimization"
+    "description": "Official Greenflash agent skills. Analyze real user-agent conversations to find what's broken, optimize prompts, and understand your users."
   },
   "plugins": [
     {
       "name": "greenflash",
       "source": "./",
-      "description": "Analyze real user conversations to find product issues, improve prompts, uncover UX gaps, and raise AI quality",
+      "description": "Analyze real user-agent conversations to surface where users get blocked, optimize prompts, and understand what drives engagement or churn",
       "category": "insights",
       "tags": [
         "ai-product-optimization",

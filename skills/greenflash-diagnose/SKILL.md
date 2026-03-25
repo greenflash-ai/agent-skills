@@ -1,6 +1,6 @@
 ---
 name: greenflash-diagnose
-description: Diagnose issues — failing tools, root causes, guardrail violations, and actionable fixes
+description: Diagnose the silent failures your evals miss. Surfaces failing tools, root causes, guardrail violations, and tells you exactly what to change. Use whenever the user asks what's broken, why something is failing, wants root cause analysis, asks about tool failures or error rates, or wants to debug and fix issues based on real conversation data.
 argument-hint: specific issue or general diagnosis request
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Diagnostics & Resolution
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Default Behavior
 
@@ -26,7 +26,7 @@ When the user describes a specific issue:
 
 ## Deep-Dive Flow
 
-The core value of this skill is the diagnostic chain:
+The core value is the diagnostic chain. Your evals catch the problems you already know about. This catches the ones you don't:
 
 1. **Surface the problem** — the Chat agent identifies failing tools, root causes, violations
 2. **Show who's affected** — users, segments, products impacted
@@ -47,7 +47,7 @@ When the user asks for evidence (e.g., "show me an example conversation"):
 
 ## Implementation
 
-After presenting a diagnosis, don't just suggest — offer to implement the fix. Ask the user: **"Want me to implement this fix?"**
+After presenting a diagnosis, offer to implement the fix directly. Not just what's wrong, but what to change. Ask the user: **"Want me to implement this fix?"**
 
 If yes, use tools to make the changes:
 
