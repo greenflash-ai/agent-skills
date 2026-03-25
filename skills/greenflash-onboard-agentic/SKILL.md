@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-agentic
-description: Upgrade an existing Greenflash SDK integration to support agentic workflows with structured message types, tool calls, and reasoning traces
+description: Upgrade an existing Greenflash SDK integration to support agentic workflows with structured message types, tool calls, and reasoning traces. Use when the user has Greenflash integrated and wants to log agent tool calls, reasoning steps, chain-of-thought, or structured message types instead of plain text.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Agentic Messages Integration
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Purpose
 

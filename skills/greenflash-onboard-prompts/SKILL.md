@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-prompts
-description: Upgrade an existing Greenflash SDK integration to log system prompts for prompt optimization, versioning, and component-level analysis
+description: Upgrade an existing Greenflash SDK integration to log system prompts for prompt optimization, versioning, and component-level analysis. Use when the user already has Greenflash integrated and wants to start logging system prompts, track prompt versions, add prompt components, or enable prompt optimization features.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash System Prompt Logging
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Purpose
 

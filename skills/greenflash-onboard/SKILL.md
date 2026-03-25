@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard
-description: Integrate the Greenflash SDK into a codebase — installs the SDK, creates a client, wires up message logging, and identifies users/orgs
+description: Integrate the Greenflash SDK into a codebase — installs the SDK, creates a client, wires up message logging, and identifies users/orgs. Use whenever the user wants to set up Greenflash, add Greenflash to their project, integrate conversation logging, install the Greenflash SDK, or start tracking AI conversations in their Python or TypeScript app.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash SDK Integration
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Purpose
 

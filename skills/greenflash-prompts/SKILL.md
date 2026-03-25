@@ -1,6 +1,6 @@
 ---
 name: greenflash-prompts
-description: Evaluate prompt and model performance — quality issues, optimization recommendations, model comparison
+description: Evaluate prompt and model performance — quality issues, optimization recommendations, model comparison. Use whenever the user asks about prompt quality, model performance, hallucination rates, which model to use, how to optimize prompts, or wants to compare models. Also triggers when the user wants to fix or improve a prompt based on data.
 argument-hint: prompt name/ID, model name, or general question
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Prompt & Model Optimization
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

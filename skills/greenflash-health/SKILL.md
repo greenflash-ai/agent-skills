@@ -1,6 +1,6 @@
 ---
 name: greenflash-health
-description: Check your product health — quality trends, anomalies, safety issues, and sentiment
+description: Check your product health — quality trends, anomalies, safety issues, and sentiment. Use whenever the user asks about product status, quality scores, how things are going, what's trending, safety violations, sentiment shifts, or wants a general health check on their AI products.
 argument-hint: optional product name or UUID
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Health & Monitoring
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

@@ -1,6 +1,6 @@
 ---
 name: greenflash
-description: Query your Greenflash workspace — product health, inbox triage, user insights, prompt optimization, and diagnostics
+description: Query your Greenflash workspace — product health, inbox triage, user insights, prompt optimization, and diagnostics. Use this skill whenever the user asks about their AI product quality, user conversations, what's broken, how prompts are performing, who their users are, or anything related to Greenflash. Also triggers on phrases like "how are my products doing", "what needs attention", "check my AI", "any issues", or "show me my dashboard".
 argument-hint: your question (e.g. "how are my products doing?")
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Router
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling before proceeding.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling before proceeding.
 
 ## Setup
 

@@ -30,6 +30,15 @@ No environment setup required. On first run, the skill will ask for your API key
 | `greenflash-prompts` | Prompt analysis, model comparison, optimization — and direct implementation of fixes |
 | `greenflash-diagnose` | Root cause analysis, failing tool detection, and automated fix implementation |
 
+### SDK Integration
+
+| Skill | Description |
+|-------|-------------|
+| `greenflash-onboard` | Set up the Greenflash SDK — install, create client, wire message logging (Python & TypeScript) |
+| `greenflash-onboard-prompts` | Add system prompt logging for prompt optimization and versioning |
+| `greenflash-onboard-agentic` | Add structured message types for agent tool calls, reasoning, and workflows |
+| `greenflash-onboard-events` | Track business events — link AI conversations to conversions, upgrades, and churn |
+
 ## Local Development
 
 If you're running the Greenflash API locally, set `GREENFLASH_API_URL` to override the default production URL:

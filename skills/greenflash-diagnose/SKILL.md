@@ -1,6 +1,6 @@
 ---
 name: greenflash-diagnose
-description: Diagnose issues — failing tools, root causes, guardrail violations, and actionable fixes
+description: Diagnose issues — failing tools, root causes, guardrail violations, and actionable fixes. Use whenever the user asks what's broken, why something is failing, wants root cause analysis, asks about tool failures or error rates, or wants to debug and fix issues in their AI product based on real conversation data.
 argument-hint: specific issue or general diagnosis request
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Diagnostics & Resolution
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

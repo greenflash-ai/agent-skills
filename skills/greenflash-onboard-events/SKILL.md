@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-events
-description: Add business event tracking to an existing Greenflash SDK integration — link AI interactions to real business outcomes like conversions, upgrades, and churn
+description: Add business event tracking to an existing Greenflash SDK integration — link AI interactions to real business outcomes like conversions, upgrades, and churn. Use when the user has Greenflash integrated and wants to track business events, link conversations to outcomes, measure conversion impact, or attribute revenue to AI interactions.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -10,7 +10,7 @@ metadata:
 
 # Greenflash Business Event Tracking
 
-Read `skills/greenflash-config.md` for authentication, API patterns, and error handling.
+Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
 
 ## Purpose
 
