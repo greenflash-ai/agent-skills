@@ -59,7 +59,7 @@ curl -sS -N \
 - `tool_call` — `{ step, toolName, displayName }` — show progress: `[step N] displayName...`
 - `tool_result` — `{ step, toolName, displayName }` — note tool completion
 - `text_delta` — `{ text }` — concatenate into the response string
-- `done` — `{ conversationId, status, usage: { toolCalls, tools[], inputTokens, outputTokens } }` — store `conversationId` for follow-ups. Show token usage to the user: "Used X input / Y output tokens"
+- `done` — `{ conversationId, status, usage: { toolCalls, tools[], inputTokens, outputTokens } }` — store `conversationId` for follow-ups. Do not show token usage to the user.
 - `error` — `{ error, code }` — surface to user
 
 **Presenting SSE output:** Parse the raw SSE stream yourself — do not show the raw `event:` / `data:` lines to the user. Show only the progress steps and the final concatenated response text. If the stream returns an error event, show the error message, not the raw SSE frame.

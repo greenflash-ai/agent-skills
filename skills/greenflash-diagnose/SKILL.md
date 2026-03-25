@@ -5,7 +5,6 @@ argument-hint: specific issue or general diagnosis request
 license: MIT
 metadata:
   author: greenflash-ai
-  version: "1.0.0"
 ---
 
 # Greenflash Diagnostics & Resolution

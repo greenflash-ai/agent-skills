@@ -5,7 +5,6 @@ argument-hint: optional product name or UUID
 license: MIT
 metadata:
   author: greenflash-ai
-  version: "1.0.0"
 ---
 
 # Greenflash Health & Monitoring

@@ -1,7 +1,7 @@
 {
   "name": "greenflash",
   "description": "Analyze real user-agent conversations to surface where users get blocked, which flows fail, and what to change. Health checks, inbox triage, user insights, prompt optimization, and diagnostics.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Greenflash AI",
     "email": "support@greenflash.ai"
