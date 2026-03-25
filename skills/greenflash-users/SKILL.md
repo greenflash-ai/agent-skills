@@ -32,10 +32,22 @@ Examples:
 When the user names a segment:
 - `/greenflash:greenflash-users enterprise segment` -> "Tell me about the enterprise segment. What's the health, size, key metrics, and any trends?"
 
+## Creating Segments
+
+When the user wants to create a segment, send a natural language description to the Chat API. The agent will translate it into filter rules and call `createSegment`.
+
+- `/greenflash:greenflash-users create a segment for frustrated enterprise users` -> "Create a segment for users who have frustration >= 0.5 and the property 'plan' equals 'enterprise'"
+- `/greenflash:greenflash-users set up a segment for users with high commercial intent` -> "Create a segment for users with commercial intent >= 0.6"
+- `/greenflash:greenflash-users make a segment for users seen in the last 7 days with more than 5 conversations` -> "Create a segment for users last seen within 7d who have at least 5 conversations"
+
+If the user hits their plan's segment limit, the agent returns an error with the limit and current count. Surface it and suggest upgrading.
+
+Segment creation is available on **all plans** — the number of custom segments is limited per plan.
+
 ## Interaction Flow
 
 1. Check authentication per shared config
-2. Determine query type: segment overview, individual user, or specific segment
+2. Determine query type: segment overview, individual user, specific segment, or segment creation
 3. Send the appropriate question to `POST {baseUrl}/chat`
 4. Stream SSE events with progress indicators
 5. Present the response
@@ -47,5 +59,6 @@ The Chat agent handles these naturally as follow-ups in the same conversation:
 - "Compare power users vs churning users" -> agent uses `compareSegments`
 - "Why is she frustrated?" -> agent uses `getUserTrajectory` and conversation detail
 - "Show me their conversations" -> agent uses `getConversationDetail`
+- "Create a segment for these users" -> agent uses `createSegment`
 
 Continue in the same Chat conversation for all follow-ups.

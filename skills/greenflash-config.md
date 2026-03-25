@@ -54,6 +54,38 @@ For targeted lookups (get entity by ID, list entities):
 - Headers: `Authorization: Bearer {key}`, `Accept: application/json`
 - Parse JSON response, check `success` field
 
+For creating resources:
+- `POST {baseUrl}/{resource}`
+- Headers: `Authorization: Bearer {key}`, `Content-Type: application/json`
+- Returns 201 on success
+
+### POST /segments — Create Custom Segment
+
+Available on **all plans** (number limited by plan's `maxCustomSegments` quota).
+
+**Body:**
+```json
+{
+  "name": "High-Intent Enterprise Users",
+  "description": "Users with high commercial intent from the enterprise plan",
+  "icon": "Users",
+  "filters": {
+    "rules": [
+      { "type": "analysis", "field": "commercialIntent", "operator": "gte", "value": 0.6 },
+      { "type": "property", "key": "plan", "operator": "eq", "value": "enterprise" }
+    ],
+    "productIds": ["optional-uuid"],
+    "dateRange": { "preset": "30d" }
+  }
+}
+```
+
+**Rule types:** `analysis` (sentiment/frustration/struggle/commercialIntent/cqi/rating), `analysis_flag` (jailbreakDetected/hallucinationDetected/etc.), `property` (user properties), `conversation_property`, `conversation_count`, `last_seen`
+
+**Response (201):** `{ id, name, type, description, icon, filters, createdAt, updatedAt }`
+
+**403:** Segment limit reached — surface the limit and suggest upgrading.
+
 ## Plan Requirements
 
 The following endpoints require a **Growth plan or higher**:
