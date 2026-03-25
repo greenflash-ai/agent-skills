@@ -60,7 +60,7 @@ The following endpoints require a **Growth plan or higher**:
 - `POST /chat` — streaming chat (also rate-limited per hour)
 - `GET /*/analytics` — all analytics endpoints (product, model, prompt, user, organization, segment)
 
-Free-plan API keys will receive a 403 error. If this happens, tell the user: "This feature requires a Growth plan or higher. Upgrade at https://greenflash.ai/pricing"
+Free-plan API keys will receive a 403 error. If this happens, tell the user: "This feature requires a Growth plan or higher. Upgrade at https://www.greenflash.ai/app/settings/billing"
 
 List/get endpoints (interactions, products, prompts, models, segments, users, inbox) work on all plans.
 
