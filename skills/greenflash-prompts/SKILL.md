@@ -42,7 +42,7 @@ When the user asks for a prompt's content (not analytics), use REST directly:
 
 After presenting optimization recommendations, offer to implement them directly. Ask the user: **"Want me to apply these changes?"**
 
-If yes, use Claude Code's tools to make the edits:
+If yes, use tools to make the edits:
 
 - **Prompt quality fix**: Use Grep/Glob to find the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or template variables). Edit the prompt text directly — improve instructions, add examples, tighten constraints, remove hallucination-prone phrasing.
 - **Model switch**: Find where the model is configured (env vars, config files, API call parameters) and update the model identifier. Note any cost/latency tradeoffs when making the change.

@@ -49,7 +49,7 @@ When the user asks for evidence (e.g., "show me an example conversation"):
 
 After presenting a diagnosis, don't just suggest — offer to implement the fix. Ask the user: **"Want me to implement this fix?"**
 
-If yes, use Claude Code's tools to make the changes:
+If yes, use tools to make the changes:
 
 - **Failing tool / broken code path**: Use Grep and Glob to find the relevant source code in the local project. Read the file, identify the bug or misconfiguration, and use Edit to fix it. Show a diff summary of what changed.
 - **Prompt quality issue**: Locate the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or config references). Edit the prompt text directly — add guardrails, improve instructions, fix hallucination-prone sections.

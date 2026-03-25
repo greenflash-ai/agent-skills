@@ -40,7 +40,7 @@ Primary interface for all analytical questions:
 
 ## Message Window Management
 
-- Maintain `conversationId` and `messages` across invocations within this Claude Code session
+- Maintain `conversationId` and `messages` across invocations within this session
 - First turn: omit `conversationId`, capture from `done` event
 - Follow-ups: include `conversationId` and `messages`
 - When `messages` exceeds 6 entries: summarize older messages into a single assistant message prefixed with `[Context summary]:` (keep under 500 characters), retain only the last 6 verbatim
