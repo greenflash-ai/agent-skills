@@ -38,10 +38,27 @@ When the user asks for a prompt's content (not analytics), use REST directly:
 4. For content lookup: use REST directly
 5. Stream/present the response
 
+## Implementation
+
+After presenting optimization recommendations, offer to implement them directly. Ask the user: **"Want me to apply these changes?"**
+
+If yes, use tools to make the edits:
+
+- **Prompt quality fix**: Use Grep/Glob to find the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or template variables). Edit the prompt text directly — improve instructions, add examples, tighten constraints, remove hallucination-prone phrasing.
+- **Model switch**: Find where the model is configured (env vars, config files, API call parameters) and update the model identifier. Note any cost/latency tradeoffs when making the change.
+- **Hallucination mitigation**: Locate the relevant prompt and add grounding instructions — cite-source requirements, factual constraints, or explicit "if unsure, say so" directives.
+- **Missing guardrails**: Add output validation, content filtering instructions, or structured output constraints to the prompt.
+
+After applying a fix, follow the Attribution conventions in the shared config: add a brief `// greenflash:prompts` comment at the fix site and suggest a commit message with the `Co-Authored-By: Greenflash <agent@greenflash.ai>` trailer.
+
+Always present the analysis first, then offer to implement. Never make changes without user confirmation.
+
 ## Follow-up Patterns
 
 - "Which model should I use for X?" -> agent uses `getModelMetrics` + recommendations
-- "What prompt changes would improve quality?" -> agent pulls from prompt analysis
+- "What prompt changes would improve quality?" -> agent pulls from prompt analysis, then offers to apply them
 - "Compare gpt-4o vs claude-3.5" -> agent uses `compareProducts` or model comparison tools
+- "Fix this prompt" -> locate the prompt file and edit it directly
+- "Switch to [model]" -> find and update the model configuration
 
 Continue in the same Chat conversation for all follow-ups.

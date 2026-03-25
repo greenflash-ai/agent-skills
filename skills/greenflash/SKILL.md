@@ -12,6 +12,10 @@ metadata:
 
 Read `skills/greenflash-config.md` for authentication, API patterns, and error handling before proceeding.
 
+## Setup
+
+Before doing anything else, resolve the API key using the authentication flow in the shared config. If this is the user's first time, the interactive setup will walk them through it — once the key is saved, all subsequent runs just work.
+
 ## Your Role
 
 You are the entry point for all Greenflash queries. Classify the user's intent and either delegate to a sub-skill or handle directly via the Chat API.
