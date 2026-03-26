@@ -23,7 +23,7 @@ No environment setup required. On first run, the skill will ask for your API key
 
 | Skill | Description |
 |-------|-------------|
-| `greenflash` | Entry point. Routes your question to the right workflow or handles it directly |
+| `greenflash` | Entry point. Auto-detects if Greenflash is set up, offers onboarding if not, and routes your question to the right workflow |
 | `greenflash-health` | Surface quality trends, anomalies, safety issues, and sentiment across your products |
 | `greenflash-inbox` | Triage flagged conversations, prioritized by severity |
 | `greenflash-users` | Understand user behavior: who's struggling, who's churning, and what segments look like |
@@ -34,7 +34,9 @@ No environment setup required. On first run, the skill will ask for your API key
 
 | Skill | Description |
 |-------|-------------|
-| `greenflash-onboard` | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 35 minutes (Python & TypeScript) |
+| `greenflash-onboard-unified` | One-command setup: auto-detects your codebase and walks through all integration steps |
+| `greenflash-verify` | Verify your integration is working: API key, SDK, client setup, and data flow |
+| `greenflash-onboard` | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes (Python & TypeScript) |
 | `greenflash-onboard-prompts` | Log system prompts for automatic versioning and optimization |
 | `greenflash-onboard-agentic` | Log structured message types for agent tool calls, reasoning traces, and workflows |
 | `greenflash-onboard-events` | Track business events and link AI conversations to real outcomes like conversions and churn |

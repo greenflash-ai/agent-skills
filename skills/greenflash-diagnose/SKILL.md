@@ -69,3 +69,26 @@ Always present the diagnosis first, then offer to implement. Never make changes 
 - "Show me the full conversation" -> REST call to `GET {baseUrl}/interactions/{id}`
 
 Continue in the same Chat conversation for all follow-ups.
+
+## Empty State Handling
+
+If the Chat API response indicates no data is available:
+
+- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
+- **No issues found**: "No failing tools, guardrail violations, or friction patterns detected — your products are running clean. Check back after more conversations, or try `/greenflash:greenflash-health` for a broader quality overview."
+
+## Plan Gate Handling
+
+If the Chat API returns a **403** error:
+
+> "Diagnostics require the Growth plan. Upgrade at https://www.greenflash.ai/app/settings/billing to unlock root cause analysis, tool failure detection, and more."
+
+## Suggested Next Steps
+
+After presenting a diagnosis, suggest related skills:
+
+- Prompt issues identified → "Optimize the prompt with `/greenflash:greenflash-prompts`"
+- Users affected by the issue → "See who's impacted with `/greenflash:greenflash-users`"
+- Want to monitor after fixing → "Track the impact with `/greenflash:greenflash-health`"
+- Related inbox items → "Review flagged conversations with `/greenflash:greenflash-inbox`"

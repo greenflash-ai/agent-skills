@@ -1,6 +1,6 @@
 ---
 name: greenflash
-description: Analyze real user-agent conversations in your Greenflash workspace. Surfaces where users get blocked, which flows fail, and what drives upgrades or churn. Use this skill whenever the user asks about their AI product quality, user conversations, what's broken, how prompts are performing, who their users are, or anything related to Greenflash. Also triggers on "how are my products doing", "what needs attention", "check my AI", "any issues", or "show me insights".
+description: Analyze real user-agent conversations in your Greenflash workspace. Surfaces where users get blocked, which flows fail, and what drives upgrades or churn. Auto-detects if Greenflash is set up in your codebase and offers guided onboarding if not. Use this skill whenever the user asks about their AI product quality, user conversations, what's broken, how prompts are performing, who their users are, or anything related to Greenflash. Also triggers on "how are my products doing", "what needs attention", "check my AI", "any issues", "show me insights", or "set up Greenflash".
 argument-hint: your question (e.g. "how are my products doing?")
 license: MIT
 metadata:
@@ -19,6 +19,24 @@ Before doing anything else, resolve the API key using the authentication flow in
 
 You are the entry point for all Greenflash queries. Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and what drives engagement or churn. Classify the user's intent and either delegate to a sub-skill or handle directly via the Chat API.
 
+## Integration Check (First Invocation Only)
+
+On the **first invocation per session**, before classifying intent, check whether the Greenflash SDK is integrated into this codebase:
+
+1. Search for Greenflash SDK imports in project files:
+   - **Python**: `from greenflash import` or `import greenflash` in any `.py` file
+   - **TypeScript/JS**: `from 'greenflash'` or `require('greenflash')` in any `.ts`/`.js` file
+2. Also check dependency files: `greenflash` in `package.json` dependencies, `pyproject.toml`, or `requirements.txt`
+
+If **no integration found**:
+
+> "I noticed Greenflash isn't set up in this codebase yet. Would you like me to get it running? It's about 5 lines of code and you'll see your first insights within minutes."
+
+- If the user says yes → invoke `/greenflash:greenflash-onboard-unified`
+- If the user says no or wants to proceed with their question → continue to intent classification normally (the Chat API can still answer questions about data from other projects)
+
+**Cache this check for the session** — do not re-scan on every invocation. Set a flag like `integration_checked = true` after the first scan.
+
 ## Intent Classification
 
 Classify the user's question into one of these workflows:
@@ -30,6 +48,8 @@ Classify the user's question into one of these workflows:
 | Users, a specific user, segments, frustrated/churning users, cohorts | `/greenflash:greenflash-users` |
 | Prompts, models, optimization, performance, model comparison | `/greenflash:greenflash-prompts` |
 | What's broken, failing tools, root causes, diagnosis, fixes | `/greenflash:greenflash-diagnose` |
+| Setting up Greenflash, SDK setup, onboarding, getting started | `/greenflash:greenflash-onboard-unified` |
+| Verifying setup, checking if Greenflash is working, status | `/greenflash:greenflash-verify` |
 
 **When intent is ambiguous** (matches multiple workflows, or you're not sure): do NOT guess. Send the question directly to the Chat API as a general question. The Chat agent handles cross-cutting questions well.
 

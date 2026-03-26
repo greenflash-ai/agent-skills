@@ -45,3 +45,26 @@ After presenting the health overview, suggest relevant next steps based on what 
 - If everything looks healthy: "Want to see your inbox or check specific users?"
 
 These follow-ups continue in the same Chat conversation (pass `conversationId` and `messages`).
+
+## Empty State Handling
+
+If the Chat API response indicates no data is available (empty results, no products, or no conversations):
+
+- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
+- **All products healthy, nothing flagged**: "All clear — no quality issues, anomalies, or safety concerns detected across your products. Check back after more conversations come in, or try `/greenflash:greenflash-inbox` to review flagged conversations."
+
+## Plan Gate Handling
+
+If the Chat API returns a **403** error, the user is likely on the Free plan. Tell them:
+
+> "Health analytics require the Growth plan. Upgrade at https://www.greenflash.ai/app/settings/billing to unlock quality trends, anomaly detection, and more."
+
+## Suggested Next Steps
+
+After presenting results, suggest related skills based on what was found:
+
+- Quality drops detected → "Dig deeper with `/greenflash:greenflash-diagnose` to find root causes"
+- Users impacted → "See who's affected with `/greenflash:greenflash-users`"
+- Prompt issues surfaced → "Optimize prompts with `/greenflash:greenflash-prompts`"
+- Inbox items mentioned → "Review flagged conversations with `/greenflash:greenflash-inbox`"
