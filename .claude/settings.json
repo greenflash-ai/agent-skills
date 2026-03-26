@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*greenflash.ai/api*)",
+      "Bash(cat .greenflash*)",
+      "Bash(*head -1 *.greenflash*)"
+    ]
+  }
+}

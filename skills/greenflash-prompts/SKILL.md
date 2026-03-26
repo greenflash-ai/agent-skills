@@ -5,7 +5,6 @@ argument-hint: prompt name/ID, model name, or general question
 license: MIT
 metadata:
   author: greenflash-ai
-  version: "1.0.0"
 ---
 
 # Greenflash Prompt & Model Optimization

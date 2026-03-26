@@ -1,5 +1,5 @@
 # Superpowers plans, etc.
 docs
 
-# Local Claude Plugin
-.claude/
+# Local Claude settings (keep settings.json committed for plugin permissions)
+.claude/settings.local.json

@@ -5,7 +5,6 @@ argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
   author: greenflash-ai
-  version: "1.0.0"
 ---
 
 # Greenflash System Prompt Logging
