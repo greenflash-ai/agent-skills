@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard
-description: Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 35 minutes. Installs the SDK, creates a client, wires up conversation logging, and identifies users. Use whenever the user wants to set up Greenflash, add Greenflash to their project, integrate conversation logging, install the SDK, or start tracking AI conversations in Python or TypeScript.
+description: Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes. Installs the SDK, creates a client, wires up conversation logging, and identifies users. Use whenever the user wants to set up Greenflash, add Greenflash to their project, integrate conversation logging, install the SDK, or start tracking AI conversations in Python or TypeScript.
 argument-hint: optional language hint (python or typescript)
 license: MIT
 metadata:
@@ -13,7 +13,7 @@ Read `../greenflash-config.md` (relative to this skill's directory) for authenti
 
 ## Purpose
 
-This skill integrates the **Greenflash SDK** into the user's codebase from scratch. Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and what to change. Integration takes 5-6 lines of code with first insights in about 35 minutes. This skill installs the package, creates a reusable client, wires up conversation logging, and optionally adds user/org identification.
+This skill integrates the **Greenflash SDK** into the user's codebase from scratch. Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and what to change. Integration takes 5-6 lines of code with first insights in about 5 minutes. This skill installs the package, creates a reusable client, wires up conversation logging, and optionally adds user/org identification.
 
 ## Language Detection
 

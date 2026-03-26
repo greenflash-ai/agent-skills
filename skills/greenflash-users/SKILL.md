@@ -61,3 +61,29 @@ The Chat agent handles these naturally as follow-ups in the same conversation:
 - "Create a segment for these users" -> agent uses `createSegment`
 
 Continue in the same Chat conversation for all follow-ups.
+
+## Empty State Handling
+
+If the Chat API response indicates no data is available:
+
+- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
+- **No users found**: "No users found matching that query. Make sure `external_user_id` is being passed in your SDK calls — check with `/greenflash:greenflash-verify`."
+- **No segments exist**: "No custom segments set up yet. Try creating one: `/greenflash:greenflash-users create a segment for frustrated users`"
+
+## Plan Gate Handling
+
+If the Chat API returns a **403** error:
+
+> "User analytics require the Growth plan. Upgrade at https://www.greenflash.ai/app/settings/billing to unlock user intelligence and segment analysis."
+
+Note: Segment creation via REST works on all plans (subject to segment count limits per plan).
+
+## Suggested Next Steps
+
+After presenting results, suggest related skills:
+
+- Frustrated or churning users identified → "Diagnose what's going wrong with `/greenflash:greenflash-diagnose`"
+- Specific user conversations mentioned → "Review flagged conversations with `/greenflash:greenflash-inbox`"
+- Quality patterns visible in a segment → "Check overall health with `/greenflash:greenflash-health`"
+- Prompt issues contributing to friction → "Optimize prompts with `/greenflash:greenflash-prompts`"

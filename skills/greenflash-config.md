@@ -7,7 +7,8 @@ Resolve the API key using this priority order:
 1. **Environment variable**: Check `$GREENFLASH_API_KEY`
 2. **Project config file**: Read the first line of `.greenflash` in the project root (via `cat .greenflash 2>/dev/null`)
 3. **Interactive setup**: If neither exists, prompt the user:
-   - Tell them: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
+   - First, check if they have an account: "If you don't have a Greenflash account yet, you can create one at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
+   - Then ask for the key: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
    - Wait for the user to provide the key
    - Once provided, write it to `.greenflash` in the project root
    - Confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
@@ -15,6 +16,16 @@ Resolve the API key using this priority order:
 **Gitignore guard**: Whenever `.greenflash` exists on disk (whether from step 2 or just created in step 3), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
 
 All requests use `Authorization: Bearer {key}` header.
+
+## Account Creation
+
+If the user has no API key and appears to be new to Greenflash, gently suggest creating an account before asking for the key:
+
+- **Signup URL**: https://www.greenflash.ai/sign-up
+- **API key page**: https://www.greenflash.ai/app/settings/developers?section=api-keys
+- **Product creation**: https://www.greenflash.ai/app/products/create
+
+This is a suggestion, not a blocker — the user may already have a key from a teammate or another project.
 
 ## API Base URL
 
@@ -142,6 +153,21 @@ The following endpoints require a **Growth plan or higher**:
 Free-plan API keys will receive a 403 error. If this happens, tell the user: "This feature requires a Growth plan or higher. Upgrade at https://www.greenflash.ai/app/settings/billing"
 
 List/get endpoints (interactions, products, prompts, models, segments, users, inbox) work on all plans.
+
+### Plan Features Reference
+
+Use this when explaining what's available or when a user hits a feature gate:
+
+| Feature | Free | Growth | Enterprise |
+|---------|------|--------|------------|
+| SDK logging (messages, prompts, events) | Yes | Yes | Yes |
+| List/get endpoints (interactions, products, etc.) | Yes | Yes | Yes |
+| Custom segments | Limited | More | Unlimited |
+| Chat API (analytical questions) | No | Yes | Yes |
+| Analytics endpoints | No | Yes | Yes |
+
+- **Upgrade URL**: https://www.greenflash.ai/app/settings/billing
+- When a 403 indicates a plan gate, explain what the feature does and how upgrading unlocks it — don't just say "upgrade"
 
 ## Attribution
 

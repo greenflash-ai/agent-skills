@@ -61,3 +61,27 @@ Always present the analysis first, then offer to implement. Never make changes w
 - "Switch to [model]" -> find and update the model configuration
 
 Continue in the same Chat conversation for all follow-ups.
+
+## Empty State Handling
+
+If the Chat API response indicates no data is available:
+
+- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
+- **No prompts tracked**: "No system prompts are being logged yet. Add prompt tracking with `/greenflash:greenflash-onboard-prompts` to unlock prompt performance analytics."
+- **No models detected**: "No model data found. Make sure you're passing the `model` field in your SDK calls (e.g., `model='gpt-4o'`) to enable model comparison."
+
+## Plan Gate Handling
+
+If the Chat API returns a **403** error:
+
+> "Prompt and model analytics require the Growth plan. Upgrade at https://www.greenflash.ai/app/settings/billing to unlock performance insights and optimization recommendations."
+
+## Suggested Next Steps
+
+After presenting results, suggest related skills:
+
+- Changes applied to prompts → "Check the impact after deploying with `/greenflash:greenflash-health`"
+- User friction related to prompt issues → "See affected users with `/greenflash:greenflash-users`"
+- Deeper diagnosis needed → "Run a full diagnosis with `/greenflash:greenflash-diagnose`"
+- Flagged conversations from prompt issues → "Review them in `/greenflash:greenflash-inbox`"
