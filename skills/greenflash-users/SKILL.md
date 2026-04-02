@@ -1,15 +1,20 @@
 ---
 name: greenflash-users
-description: Understand user behavior from real conversations. Individual lookups, segment health, and cohort analysis. Use whenever the user asks about a specific user, wants to see segments, asks who's frustrated or churning, wants to create a user segment, compare cohorts, or look up user activity and sentiment.
+description: Understand user behavior from real conversations. Individual lookups, segment health, cohort analysis, and custom segment creation. Identifies frustrated, churning, or high-value users.
 argument-hint: user email/name, segment name, or general question
+allowed-tools: [Bash, Read]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash User & Segment Intelligence
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

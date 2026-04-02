@@ -1,15 +1,20 @@
 ---
 name: greenflash-diagnose
-description: Diagnose the silent failures your evals miss. Surfaces failing tools, root causes, guardrail violations, and tells you exactly what to change. Use whenever the user asks what's broken, why something is failing, wants root cause analysis, asks about tool failures or error rates, or wants to debug and fix issues based on real conversation data.
+description: Root cause analysis for silent failures your evals miss. Surfaces failing tools, guardrail violations, and user friction with concrete fixes. Can implement changes directly in your codebase.
 argument-hint: specific issue or general diagnosis request
+allowed-tools: [Bash, Read, Grep, Glob, Edit]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Diagnostics & Resolution
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

@@ -1,15 +1,20 @@
 ---
 name: greenflash-prompts
-description: Find prompt and model quality issues using real conversation data. Not just what's wrong, but what to change. Use whenever the user asks about prompt quality, model performance, hallucination rates, which model to use, how to optimize prompts, or wants to compare models. Also triggers when the user wants to fix or improve a prompt based on data.
+description: Find prompt and model quality issues using real conversation data, with specific optimization recommendations. Can implement prompt fixes and model switches directly in your codebase.
 argument-hint: prompt name/ID, model name, or general question
+allowed-tools: [Bash, Read, Grep, Glob, Edit]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Prompt & Model Optimization
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

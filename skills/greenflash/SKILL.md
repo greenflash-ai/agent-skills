@@ -1,19 +1,24 @@
 ---
 name: greenflash
-description: Analyze real user-agent conversations in your Greenflash workspace. Surfaces where users get blocked, which flows fail, and what drives upgrades or churn. Auto-detects if Greenflash is set up in your codebase and offers guided onboarding if not. Use this skill whenever the user asks about their AI product quality, user conversations, what's broken, how prompts are performing, who their users are, or anything related to Greenflash. Also triggers on "how are my products doing", "what needs attention", "check my AI", "any issues", "show me insights", or "set up Greenflash".
+description: Entry point for all Greenflash queries. Analyzes real user-agent conversations to surface blockers, failures, and engagement drivers. Auto-detects SDK setup and offers onboarding. Routes to specialized sub-skills based on intent.
 argument-hint: your question (e.g. "how are my products doing?")
+allowed-tools: [Bash, Read, Grep, Glob, Skill]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Router
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling before proceeding.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling before proceeding.
 
 ## Setup
 
-Before doing anything else, resolve the API key using the authentication flow in the shared config. If this is the user's first time, the interactive setup will walk them through it — once the key is saved, all subsequent runs just work.
+The API key is pre-resolved above. If it's empty, follow the interactive setup in the shared config to get one from the user — once saved, all subsequent runs just work.
 
 ## Your Role
 

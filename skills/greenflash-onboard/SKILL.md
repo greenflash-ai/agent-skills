@@ -1,7 +1,8 @@
 ---
 name: greenflash-onboard
-description: Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes. Installs the SDK, creates a client, wires up conversation logging, and identifies users. Use whenever the user wants to set up Greenflash, add Greenflash to their project, integrate conversation logging, install the SDK, or start tracking AI conversations in Python or TypeScript.
+description: Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes. Installs the SDK, creates a client, and wires up conversation logging for Python or TypeScript.
 argument-hint: optional language hint (python or typescript)
+allowed-tools: [Bash, Read, Grep, Glob, Edit, Write]
 license: MIT
 metadata:
   author: greenflash-ai
@@ -9,7 +10,7 @@ metadata:
 
 # Greenflash SDK Integration
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 

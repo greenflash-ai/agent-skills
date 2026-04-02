@@ -3,7 +3,8 @@
     "allow": [
       "Bash(*greenflash.ai/api*)",
       "Bash(cat .greenflash*)",
-      "Bash(*head -1 *.greenflash*)"
+      "Bash(printenv GREENFLASH_API_KEY)",
+      "Bash(pip list*)"
     ]
   }
 }

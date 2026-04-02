@@ -1,7 +1,8 @@
 ---
 name: greenflash-onboard-agentic
-description: Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Gives Greenflash richer visibility into agent behavior for analysis and optimization. Use when the user has Greenflash integrated and wants to log agent tool calls, reasoning steps, chain-of-thought, or structured messages instead of plain text.
+description: Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Upgrades an existing Greenflash integration with richer agent visibility.
 argument-hint: optional language hint (python or typescript)
+allowed-tools: [Bash, Read, Grep, Glob, Edit]
 license: MIT
 metadata:
   author: greenflash-ai
@@ -9,7 +10,7 @@ metadata:
 
 # Greenflash Agentic Messages Integration
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 

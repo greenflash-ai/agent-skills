@@ -1,15 +1,20 @@
 ---
 name: greenflash-inbox
-description: Triage flagged conversations prioritized by severity. Surfaces the interactions that need human attention so you stop flying blind. Use whenever the user asks what needs review, what's flagged, what needs attention, wants to see guardrail violations, or asks about conversations flagged for review.
+description: Triage flagged conversations prioritized by severity. Surfaces interactions needing human attention — guardrail violations, quality issues, and safety flags.
 argument-hint: optional filter (e.g. "guardrail violations", "high severity")
+allowed-tools: [Bash, Read]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Inbox Triage
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Default Behavior
 
@@ -36,7 +41,13 @@ When the user asks to see more about a specific item (e.g., "tell me more about 
 ## Transcript Access
 
 When the user asks to see the full transcript of a conversation:
-- Use REST directly: `GET {baseUrl}/interactions/{interactionId}`
+- Use REST directly per the shared config's REST pattern:
+  ```bash
+  curl -sS --fail-with-body \
+    -H "Authorization: Bearer $GREENFLASH_API_KEY" \
+    -H "Accept: application/json" \
+    "https://www.greenflash.ai/api/v1/interactions/{interactionId}"
+  ```
 - Parse and display the messages array with role labels
 
 ## Action Suggestions
