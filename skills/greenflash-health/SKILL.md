@@ -1,15 +1,20 @@
 ---
 name: greenflash-health
-description: Surface quality trends, anomalies, safety issues, and sentiment across your AI products. Use whenever the user asks about product status, quality scores, how things are going, what's trending, safety violations, sentiment shifts, or wants a health check on their AI products.
+description: Surface quality trends, anomalies, safety issues, and sentiment across your AI products. Use for health checks, status overviews, and monitoring what needs attention.
 argument-hint: optional product name or UUID
+allowed-tools: [Bash, Read]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Health & Monitoring
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Default Behavior
 

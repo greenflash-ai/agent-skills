@@ -1,7 +1,8 @@
 ---
 name: greenflash-onboard-prompts
-description: Log system prompts for automatic versioning and component-level optimization. Upgrades an existing Greenflash integration. Use when the user already has Greenflash integrated and wants to start logging system prompts, track prompt versions, add prompt components, or enable prompt optimization.
+description: Log system prompts for automatic versioning and component-level optimization. Upgrades an existing Greenflash integration with prompt tracking and analytics.
 argument-hint: optional language hint (python or typescript)
+allowed-tools: [Bash, Read, Grep, Glob, Edit]
 license: MIT
 metadata:
   author: greenflash-ai
@@ -9,7 +10,7 @@ metadata:
 
 # Greenflash System Prompt Logging
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 

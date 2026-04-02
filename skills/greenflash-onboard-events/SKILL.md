@@ -1,7 +1,8 @@
 ---
 name: greenflash-onboard-events
-description: Track business events and link AI conversations to real outcomes like conversions, upgrades, and churn. Closes the loop between conversation quality and business impact. Use when the user has Greenflash integrated and wants to track business events, link conversations to outcomes, measure conversion impact, or attribute revenue to AI interactions.
+description: Track business events and link AI conversations to real outcomes like conversions, upgrades, and churn. Upgrades an existing Greenflash integration with outcome attribution.
 argument-hint: optional language hint (python or typescript)
+allowed-tools: [Bash, Read, Grep, Glob, Edit]
 license: MIT
 metadata:
   author: greenflash-ai
@@ -9,7 +10,7 @@ metadata:
 
 # Greenflash Business Event Tracking
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 

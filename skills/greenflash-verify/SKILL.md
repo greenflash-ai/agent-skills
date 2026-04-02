@@ -1,15 +1,20 @@
 ---
 name: greenflash-verify
-description: Verify your Greenflash integration is working correctly. Checks API key validity, product setup, SDK installation, client configuration, message logging, and data flow. Use after onboarding or anytime you want to confirm your setup is healthy. Also triggers on "is Greenflash working", "check my setup", "verify integration", or "integration status".
+description: Verify your Greenflash integration is working: API key, products, SDK installation, client setup, message logging, and data flow. Run after onboarding or to confirm setup health.
 argument-hint: none
+allowed-tools: [Bash, Read, Grep, Glob]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Integration Verification
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 

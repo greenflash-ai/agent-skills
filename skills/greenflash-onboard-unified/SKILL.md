@@ -1,15 +1,20 @@
 ---
 name: greenflash-onboard-unified
-description: One-command Greenflash setup. Auto-detects your codebase, walks through SDK installation, conversation logging, system prompt tracking, agentic message types, and business event tracking — all in one guided flow. Use instead of running onboarding skills individually. Triggers on "set up Greenflash", "get started with Greenflash", "add Greenflash", "onboard", or "integrate Greenflash".
+description: One-command Greenflash setup. Auto-detects your codebase and walks through SDK installation, conversation logging, prompt tracking, agentic messages, and event tracking in one guided flow.
 argument-hint: optional language hint (python or typescript)
+allowed-tools: [Bash, Read, Grep, Glob, Edit, Write, Skill]
 license: MIT
 metadata:
   author: greenflash-ai
 ---
 
+GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
+
+> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+
 # Greenflash Unified Onboarding
 
-Read `../greenflash-config.md` (relative to this skill's directory) for authentication, API patterns, and error handling.
+Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
 
 ## Purpose
 
