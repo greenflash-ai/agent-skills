@@ -4,7 +4,7 @@
 
 Resolve the API key using this priority order:
 
-1. **Environment variable**: Check `$GREENFLASH_API_KEY`
+1. **Environment variable**: Run `printenv GREENFLASH_API_KEY` — if it outputs a value, use that as the key
 2. **Project config file**: Read the first line of `.greenflash` in the project root (use the Read tool, or `cat .greenflash` via Bash)
 3. **Interactive setup**: If neither exists, prompt the user:
    - First, check if they have an account: "If you don't have a Greenflash account yet, you can create one at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
@@ -16,6 +16,12 @@ Resolve the API key using this priority order:
 **Gitignore guard**: Whenever `.greenflash` exists on disk (whether from step 2 or just created in step 3), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
 
 All requests use `Authorization: Bearer {key}` header.
+
+### Using the key in curl commands
+
+- **If `$GREENFLASH_API_KEY` is set**: Reference the variable directly in curl — `Authorization: Bearer $GREENFLASH_API_KEY`. Do NOT resolve the variable first and paste the literal value.
+- **If the key came from `.greenflash` or user input**: You will need to paste the literal key value into the curl command. This is fine, but keep the command clean — longer commands with literal keys are where redirect mistakes (`2>&1`) tend to creep in.
+- **NEVER** use compound commands to avoid pasting the key (e.g., `KEY=$(cat .greenflash) && curl ...`). Shell operators like `&&`, `||`, `$(...)`, and backticks break permission matching the same way `2>&1` does.
 
 ## Account Creation
 
@@ -60,7 +66,7 @@ Primary interface for all analytical questions:
 **Example:**
 ```bash
 curl -sS -N \
-  -H "Authorization: Bearer $KEY" \
+  -H "Authorization: Bearer $GREENFLASH_API_KEY" \
   -H "Accept: text/event-stream" \
   -H "Content-Type: application/json" \
   -d '{"question":"..."}' \
@@ -104,13 +110,22 @@ All list endpoints (`/interactions`, `/products`, `/prompts`, `/models`, `/segme
 - **No `next` link** means you're on the last page
 - To paginate: parse the `Link` header, extract the `rel="next"` URL, and fetch it
 
-**Example:**
+**List example:**
 ```bash
 curl -sS --fail-with-body \
-  -H "Authorization: Bearer $KEY" \
+  -H "Authorization: Bearer $GREENFLASH_API_KEY" \
+  -H "Accept: application/json" \
   "https://www.greenflash.ai/api/v1/interactions?page=1&limit=50"
 # Response: [...items...]
 # Link header: <.../interactions?page=2&limit=50>; rel="next"
+```
+
+**Get-by-ID example:**
+```bash
+curl -sS --fail-with-body \
+  -H "Authorization: Bearer $GREENFLASH_API_KEY" \
+  -H "Accept: application/json" \
+  "https://www.greenflash.ai/api/v1/interactions/{id}"
 ```
 
 For creating resources:

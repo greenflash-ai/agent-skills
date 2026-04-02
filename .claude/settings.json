@@ -2,8 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(*greenflash.ai/api*)",
-      "Bash(cat .greenflash)",
-      "Bash(pip list)"
+      "Bash(cat .greenflash*)",
+      "Bash(printenv GREENFLASH_API_KEY)",
+      "Bash(pip list*)"
     ]
   }
 }

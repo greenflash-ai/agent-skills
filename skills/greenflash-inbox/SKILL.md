@@ -39,7 +39,8 @@ When the user asks to see the full transcript of a conversation:
 - Use REST directly per the shared config's REST pattern:
   ```bash
   curl -sS --fail-with-body \
-    -H "Authorization: Bearer $KEY" \
+    -H "Authorization: Bearer $GREENFLASH_API_KEY" \
+    -H "Accept: application/json" \
     "https://www.greenflash.ai/api/v1/interactions/{interactionId}"
   ```
 - Parse and display the messages array with role labels
