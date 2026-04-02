@@ -5,7 +5,7 @@
 Resolve the API key using this priority order:
 
 1. **Environment variable**: Check `$GREENFLASH_API_KEY`
-2. **Project config file**: Read the first line of `.greenflash` in the project root (via `cat .greenflash`)
+2. **Project config file**: Read the first line of `.greenflash` in the project root (use the Read tool, or `cat .greenflash` via Bash)
 3. **Interactive setup**: If neither exists, prompt the user:
    - First, check if they have an account: "If you don't have a Greenflash account yet, you can create one at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
    - Then ask for the key: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
