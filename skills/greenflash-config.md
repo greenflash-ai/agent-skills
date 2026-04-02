@@ -5,7 +5,7 @@
 Resolve the API key using this priority order:
 
 1. **Environment variable**: Check `$GREENFLASH_API_KEY`
-2. **Project config file**: Read the first line of `.greenflash` in the project root (via `cat .greenflash 2>/dev/null`)
+2. **Project config file**: Read the first line of `.greenflash` in the project root (via `cat .greenflash`)
 3. **Interactive setup**: If neither exists, prompt the user:
    - First, check if they have an account: "If you don't have a Greenflash account yet, you can create one at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
    - Then ask for the key: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
@@ -37,11 +37,12 @@ This is a suggestion, not a blocker — the user may already have a key from a t
 
 **Use the URL exactly as specified above.** Do not guess alternative subdomains (e.g., `app.greenflash.ai`, `api.greenflash.ai`). Do not verify, probe, or test the URL before making the actual request. Just call it.
 
-**Keep API calls clean:**
+**Keep ALL Bash commands clean — no shell redirects or pipes:**
+- **NEVER** append `2>&1`, `2>/dev/null`, `| head`, `| tail`, or any other shell redirects/pipes to ANY command. These contain `>` or `|` characters that break Claude Code's permission pattern matching and cause "Permission denied" errors. This applies to curl commands, cat commands, and everything else.
 - Use `curl -sS --fail-with-body` for all requests — this suppresses progress bars and only shows the response body (or error body on failure)
 - For SSE streams, use `curl -sS -N` (unbuffered) — do not add `-v` or `--verbose`
 - Never use `-X POST` when `-d` is present (curl infers POST automatically)
-- Do not pipe through `head`, `tail`, or `2>&1` — let the response speak for itself
+- curl commands must end with the URL as the final argument — nothing after it
 - Do not announce or narrate the API call (no "Let me verify the endpoint" or "Checking API accessibility"). Just make the request silently and present the result
 
 **If a request fails:** Show the HTTP status code and error message from the response body. Do not retry with verbose flags or alternative URLs — follow the error handling rules below instead.

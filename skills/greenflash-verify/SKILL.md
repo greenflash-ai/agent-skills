@@ -48,7 +48,7 @@ Detect project language and check for the SDK package:
 
 **Python:**
 - Search for `greenflash` in `pyproject.toml`, `requirements.txt`, `requirements-dev.txt`, `setup.py`, `setup.cfg`, or `Pipfile`
-- Also check: `pip list 2>/dev/null | grep -i greenflash`
+- Also check: run `pip list` and look for greenflash in the output
 - **Found**: **[PASS]** "SDK installed (greenflash)" — include version if detectable
 - **Not found**: **[FAIL]** "Greenflash SDK not installed. Run `pip install --pre greenflash` (or `pip install --pre 'greenflash[aiohttp]'` for async support)"
 

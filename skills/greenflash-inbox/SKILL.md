@@ -36,7 +36,12 @@ When the user asks to see more about a specific item (e.g., "tell me more about 
 ## Transcript Access
 
 When the user asks to see the full transcript of a conversation:
-- Use REST directly: `GET {baseUrl}/interactions/{interactionId}`
+- Use REST directly per the shared config's REST pattern:
+  ```bash
+  curl -sS --fail-with-body \
+    -H "Authorization: Bearer $KEY" \
+    "https://www.greenflash.ai/api/v1/interactions/{interactionId}"
+  ```
 - Parse and display the messages array with role labels
 
 ## Action Suggestions
