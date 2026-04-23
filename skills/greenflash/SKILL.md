@@ -53,6 +53,7 @@ Classify the user's question into one of these workflows:
 | Users, a specific user, segments, frustrated/churning users, cohorts | `/greenflash:greenflash-users` |
 | Prompts, models, optimization, performance, model comparison | `/greenflash:greenflash-prompts` |
 | What's broken, failing tools, root causes, diagnosis, fixes | `/greenflash:greenflash-diagnose` |
+| Filing tickets, creating bugs in Linear/Jira, turning conversations into tickets | `/greenflash:greenflash-tickets` |
 | Setting up Greenflash, SDK setup, onboarding, getting started | `/greenflash:greenflash-onboard-unified` |
 | Verifying setup, checking if Greenflash is working, status | `/greenflash:greenflash-verify` |
 

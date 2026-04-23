@@ -79,3 +79,4 @@ After presenting inbox items, suggest related skills:
 - User patterns visible → "Check the user's history with `/greenflash:greenflash-users`"
 - Prompt-related flags → "Optimize the prompt with `/greenflash:greenflash-prompts`"
 - Want broader view → "Check overall product health with `/greenflash:greenflash-health`"
+- Worth filing as a ticket → "Draft a ticket with `/greenflash:greenflash-tickets`"
