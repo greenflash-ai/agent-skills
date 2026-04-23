@@ -27,7 +27,7 @@ This runs entirely through the same Chat API as the other Greenflash skills — 
 
 ## Prerequisites
 
-A ticket provider connection must be active for the organization. If none is set up, `draftTicket` will not appear in the tool stream. Direct the user to connect a provider at https://www.greenflash.ai/app/settings/integrations.
+A ticket provider connection must be active for the organization. If none is set up, `draftTicket` will not appear in the tool stream. Direct the user to connect a provider at https://www.greenflash.ai/app/settings/developers?section=linear.
 
 ## Default Behavior
 
@@ -133,8 +133,8 @@ Continue in the same Chat conversation — pass `conversationId` and `messages`.
 
 ## Empty State Handling
 
-- **No ticket provider connected**: "No ticket provider is set up for this organization. Connect one at https://www.greenflash.ai/app/settings/integrations — Linear is supported today."
-- **Provider needs re-auth**: If the `createTicket` result carries `error: "provider_needs_setup"`, tell the user: "The Linear connection needs to be reauthorized. Visit https://www.greenflash.ai/app/settings/integrations to reconnect."
+- **No ticket provider connected**: "No ticket provider is set up for this organization. Connect one at https://www.greenflash.ai/app/settings/developers?section=linear — Linear is supported today."
+- **Provider needs re-auth**: If the `createTicket` result carries `error: "provider_needs_setup"`, tell the user: "The Linear connection needs to be reauthorized. Visit https://www.greenflash.ai/app/settings/developers?section=linear to reconnect."
 - **Nothing to ticket**: "I couldn't find strong evidence for a ticket yet. Try `/greenflash:greenflash-inbox` or `/greenflash:greenflash-diagnose` first to surface a specific issue worth filing."
 
 ## Plan Gate Handling
