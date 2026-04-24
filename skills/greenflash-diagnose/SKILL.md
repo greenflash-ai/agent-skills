@@ -97,3 +97,4 @@ After presenting a diagnosis, suggest related skills:
 - Users affected by the issue → "See who's impacted with `/greenflash:greenflash-users`"
 - Want to monitor after fixing → "Track the impact with `/greenflash:greenflash-health`"
 - Related inbox items → "Review flagged conversations with `/greenflash:greenflash-inbox`"
+- Want to track this as work → "File a ticket with `/greenflash:greenflash-tickets`"
