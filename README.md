@@ -12,35 +12,43 @@ npx skills add greenflash-ai/agent-skills
 
 ### Claude Code (Marketplace)
 
-```bash
-claude marketplace add https://github.com/greenflash-ai/agent-skills
-claude plugin install greenflash
+Run these as **slash commands inside Claude Code** (not in your shell). Start `claude`, then:
+
 ```
+/plugin marketplace add greenflash-ai/agent-skills
+/plugin install greenflash@greenflash-plugins
+```
+
+A few things to know:
+
+- These are slash commands inside the Claude Code REPL
+- You'll see a "trust this repository" prompt the first time — accept it.
+- Plugins activate on the next session, or run `/reload-plugins` to pick them up immediately.
 
 No environment setup required. On first run, the skill will ask for your API key and save it to the project automatically.
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| `greenflash` | Entry point. Auto-detects if Greenflash is set up, offers onboarding if not, and routes your question to the right workflow |
-| `greenflash-health` | Surface quality trends, anomalies, safety issues, and sentiment across your products |
-| `greenflash-inbox` | Triage flagged conversations, prioritized by severity |
-| `greenflash-users` | Understand user behavior: who's struggling, who's churning, and what segments look like |
-| `greenflash-prompts` | Find prompt and model quality issues, get optimization recommendations, and apply fixes |
-| `greenflash-diagnose` | Root cause analysis for failing tools, user friction, and guardrail violations. Implements fixes directly |
-| `greenflash-tickets` | Draft and file tickets in Linear (or your connected ticket provider) from conversation evidence, with a two-step draft → confirm flow |
+| Skill                 | Description                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `greenflash`          | Entry point. Auto-detects if Greenflash is set up, offers onboarding if not, and routes your question to the right workflow           |
+| `greenflash-health`   | Surface quality trends, anomalies, safety issues, and sentiment across your products                                                  |
+| `greenflash-inbox`    | Triage flagged conversations, prioritized by severity                                                                                 |
+| `greenflash-users`    | Understand user behavior: who's struggling, who's churning, and what segments look like                                               |
+| `greenflash-prompts`  | Find prompt and model quality issues, get optimization recommendations, and apply fixes                                               |
+| `greenflash-diagnose` | Root cause analysis for failing tools, user friction, and guardrail violations. Implements fixes directly                             |
+| `greenflash-tickets`  | Draft and file tickets in Linear (or your connected ticket provider) from conversation evidence, with a two-step draft → confirm flow |
 
 ### SDK Integration
 
-| Skill | Description |
-|-------|-------------|
-| `greenflash-onboard-unified` | One-command setup: auto-detects your codebase and walks through all integration steps |
-| `greenflash-verify` | Verify your integration is working: API key, SDK, client setup, and data flow |
-| `greenflash-onboard` | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes (Python & TypeScript) |
-| `greenflash-onboard-prompts` | Log system prompts for automatic versioning and optimization |
-| `greenflash-onboard-agentic` | Log structured message types for agent tool calls, reasoning traces, and workflows |
-| `greenflash-onboard-events` | Track business events and link AI conversations to real outcomes like conversions and churn |
+| Skill                        | Description                                                                                                          |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `greenflash-onboard-unified` | One-command setup: auto-detects your codebase and walks through all integration steps                                |
+| `greenflash-verify`          | Verify your integration is working: API key, SDK, client setup, and data flow                                        |
+| `greenflash-onboard`         | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes (Python & TypeScript) |
+| `greenflash-onboard-prompts` | Log system prompts for automatic versioning and optimization                                                         |
+| `greenflash-onboard-agentic` | Log structured message types for agent tool calls, reasoning traces, and workflows                                   |
+| `greenflash-onboard-events`  | Track business events and link AI conversations to real outcomes like conversions and churn                          |
 
 ## Local Development
 

@@ -8,9 +8,7 @@ metadata:
   author: greenflash-ai
 ---
 
-GREENFLASH_API_KEY: !`printenv GREENFLASH_API_KEY 2>/dev/null || head -1 .greenflash 2>/dev/null || echo ""`
-
-> If the key above is present, use it for all API requests. If empty, follow the interactive setup in the shared config.
+> Resolve the API key per the shared config's Authentication section before making requests. Do not pre-resolve or paste the literal key into commands — reference `$GREENFLASH_API_KEY` directly in curl when set.
 
 # Greenflash Router
 
@@ -18,7 +16,7 @@ Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patte
 
 ## Setup
 
-The API key is pre-resolved above. If it's empty, follow the interactive setup in the shared config to get one from the user — once saved, all subsequent runs just work.
+Resolve the API key on demand using the shared config's Authentication section (env var → `.greenflash` → interactive prompt). Once a key is saved, subsequent runs just work.
 
 ## Your Role
 
