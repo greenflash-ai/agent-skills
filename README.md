@@ -38,6 +38,7 @@ No environment setup required. On first run, the skill will ask for your API key
 | `greenflash-prompts`  | Find prompt and model quality issues, get optimization recommendations, and apply fixes                                               |
 | `greenflash-diagnose` | Root cause analysis for failing tools, user friction, and guardrail violations. Implements fixes directly                             |
 | `greenflash-tickets`  | Draft and file tickets in Linear (or your connected ticket provider) from conversation evidence, with a two-step draft → confirm flow |
+| `greenflash-update-context`  | Correct a Greenflash analysis you disagree with. Sends one specific correction, in the user's own words, to the product's context notes |
 
 ### SDK Integration
 

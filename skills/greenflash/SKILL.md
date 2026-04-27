@@ -52,6 +52,7 @@ Classify the user's question into one of these workflows:
 | Prompts, models, optimization, performance, model comparison | `/greenflash:greenflash-prompts` |
 | What's broken, failing tools, root causes, diagnosis, fixes | `/greenflash:greenflash-diagnose` |
 | Filing tickets, creating bugs in Linear/Jira, turning conversations into tickets | `/greenflash:greenflash-tickets` |
+| Correcting an analysis, "Greenflash got this wrong", updating product context, adding domain knowledge | `/greenflash:greenflash-update-context` |
 | Setting up Greenflash, SDK setup, onboarding, getting started | `/greenflash:greenflash-onboard-unified` |
 | Verifying setup, checking if Greenflash is working, status | `/greenflash:greenflash-verify` |
 

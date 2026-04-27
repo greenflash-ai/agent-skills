@@ -89,6 +89,19 @@ If the Chat API returns a **403** error:
 
 > "Diagnostics require the Growth plan. Upgrade at https://www.greenflash.ai/app/settings/billing to unlock root cause analysis, tool failure detection, and more."
 
+## When the User Disagrees with the Diagnosis
+
+If the user pushes back on a specific finding — "that's not actually frustration, that's just how this user writes" / "Greenflash got this wrong" / "the model misread this" — offer to feed that correction back into the product's context notes:
+
+> "Want me to update the product's context so Greenflash factors that in next time? I can pass your correction to `/greenflash:greenflash-update-context` with this conversation as the source."
+
+If they confirm, invoke `/greenflash:greenflash-update-context` with:
+- The user's correction in their own words (do not paraphrase the substance — see that skill's pass-through rule)
+- The `productId` from the current diagnosis context
+- A `source` tag that identifies what they're reacting to (e.g. `"frustration analysis on conversation <id>"` or `"diagnose: <topic>"`)
+
+Do **not** auto-invoke this — only after the user explicitly disagrees and confirms they want the correction recorded.
+
 ## Suggested Next Steps
 
 After presenting a diagnosis, suggest related skills:
@@ -98,3 +111,4 @@ After presenting a diagnosis, suggest related skills:
 - Want to monitor after fixing → "Track the impact with `/greenflash:greenflash-health`"
 - Related inbox items → "Review flagged conversations with `/greenflash:greenflash-inbox`"
 - Want to track this as work → "File a ticket with `/greenflash:greenflash-tickets`"
+- Disagree with how Greenflash analyzed this → "Update product context with `/greenflash:greenflash-update-context`"
