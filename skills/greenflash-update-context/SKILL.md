@@ -18,7 +18,9 @@ Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patte
 
 Sends a single, specific correction or addition to a product's context notes via:
 
-`POST {baseUrl}/products/{productId}/context/update`
+`PATCH {baseUrl}/products/{productId}/context`
+
+Use `PATCH` — the operation merges the feedback into the existing context, it does not replace it. Do not use `POST` to this path.
 
 The endpoint runs an LLM merge that updates the prose body of the product's `optimizationNotes` and maintains a capped (last 5) appendix of dated correction lines. The user does **not** see the full updated notes back — only a one-sentence summary of what changed. That's intentional. Don't try to fetch the prose blob to "verify" the merge.
 
@@ -81,12 +83,14 @@ Otherwise, pick from the list:
 ### 3. Build the request
 
 ```bash
-curl -sS --fail-with-body \
+curl -sS --fail-with-body -X PATCH \
   -H "Authorization: Bearer $GREENFLASH_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"feedback":"<user verbatim correction>","source":"<optional source tag>"}' \
-  "https://www.greenflash.ai/api/v1/products/{productId}/context/update"
+  "https://www.greenflash.ai/api/v1/products/{productId}/context"
 ```
+
+`-X PATCH` is required here — curl can't infer PATCH from `-d` the way it infers POST, so this is the one place in the skill family where an explicit `-X` is correct (the shared config's "no `-X POST` when `-d` is present" rule does not apply to PATCH).
 
 (Use `$GREENFLASH_API_URL` as the base if it's set — see the shared config.)
 
