@@ -2,7 +2,32 @@
 name: greenflash-update-context
 description: Update a Greenflash product's context notes when an analysis is wrong or incomplete. Use when the user says "Greenflash got this wrong", "fix this analysis", "update product context", "add context to my product", "tell Greenflash that X", or wants to correct a sentiment/frustration/quality call. Forwards the user's exact correction to the product context update endpoint, which intelligently merges it into the product's optimization notes.
 argument-hint: the correction in the user's own words (e.g. "caps lock is normal communication style for our power users")
-allowed-tools: [Bash, Read]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read(.greenflash)
+  - Read(**/.greenflash)
+  - Read(.gitignore)
+  - Read(**/.gitignore)
+  - Edit(.greenflash)
+  - Edit(**/.greenflash)
+  - Edit(.gitignore)
+  - Edit(**/.gitignore)
+  - Write(.greenflash)
+  - Write(**/.greenflash)
+  - Write(.gitignore)
+  - Write(**/.gitignore)
+  - Read
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

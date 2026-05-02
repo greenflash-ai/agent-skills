@@ -1,6 +1,6 @@
 # Greenflash Agent Skills
 
-Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and which interactions drive upgrades or churn. These skills bring that intelligence directly into your coding agent so you can ask questions, get answers, and implement fixes without leaving your editor.
+Greenflash analyzes real user-agent conversations to surface where users get blocked, which flows fail, and which interactions drive upgrades or churn. These skills bring that intelligence directly into your coding agent so you can ask questions, get answers, and apply prompt and tool fixes directly when Greenflash recommends them.
 
 ## Installation
 
@@ -25,7 +25,7 @@ A few things to know:
 - You'll see a "trust this repository" prompt the first time — accept it.
 - Plugins activate on the next session, or run `/reload-plugins` to pick them up immediately.
 
-No environment setup required. On first run, the skill will ask for your API key and save it to the project automatically.
+No environment setup required. On first run, the skill activates a fresh API key for you via OAuth — it opens a browser tab, you click **Authorize**, and the key is saved to a gitignored `.greenflash` file in the project. If you can't open a browser (headless, remote SSH), you'll get a paste-key fallback automatically.
 
 ## Skills
 
@@ -46,7 +46,7 @@ No environment setup required. On first run, the skill will ask for your API key
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `greenflash-onboard-unified` | One-command setup: auto-detects your codebase and walks through all integration steps                                |
 | `greenflash-verify`          | Verify your integration is working: API key, SDK, client setup, and data flow                                        |
-| `greenflash-onboard`         | Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes (Python & TypeScript) |
+| `greenflash-onboard`         | Low-level: SDK install + conversation logging only. Most users should reach for `greenflash-onboard-unified` instead   |
 | `greenflash-onboard-prompts` | Log system prompts for automatic versioning and optimization                                                         |
 | `greenflash-onboard-agentic` | Log structured message types for agent tool calls, reasoning traces, and workflows                                   |
 | `greenflash-onboard-events`  | Track business events and link AI conversations to real outcomes like conversions and churn                          |

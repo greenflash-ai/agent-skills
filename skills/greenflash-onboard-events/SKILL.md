@@ -2,7 +2,22 @@
 name: greenflash-onboard-events
 description: Track business events and link AI conversations to real outcomes like conversions, upgrades, and churn. Upgrades an existing Greenflash integration with outcome attribution.
 argument-hint: optional language hint (python or typescript)
-allowed-tools: [Bash, Read, Grep, Glob, Edit]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

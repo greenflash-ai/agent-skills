@@ -2,7 +2,22 @@
 name: greenflash-diagnose
 description: Root cause analysis for silent failures your evals miss. Surfaces failing tools, guardrail violations, and user friction with concrete fixes. Can implement changes directly in your codebase.
 argument-hint: specific issue or general diagnosis request
-allowed-tools: [Bash, Read, Grep, Glob, Edit]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

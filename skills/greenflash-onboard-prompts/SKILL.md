@@ -2,7 +2,22 @@
 name: greenflash-onboard-prompts
 description: Log system prompts for automatic versioning and component-level optimization. Upgrades an existing Greenflash integration with prompt tracking and analytics.
 argument-hint: optional language hint (python or typescript)
-allowed-tools: [Bash, Read, Grep, Glob, Edit]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai
