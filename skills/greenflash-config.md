@@ -13,7 +13,9 @@ Resolve the API key using this priority order:
 
 After any path that produces a key, confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
 
-**Gitignore guard**: Whenever `.greenflash` exists on disk (from step 2, 3, or 4), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
+**Gitignore guard**: Whenever `.greenflash` exists on disk (from step 2, 3, or 4), check that `.gitignore` contains `.greenflash`. If not, append `.greenflash` on its own line. This prevents accidental commits of the API key.
+
+Use the **Read** tool to inspect `.gitignore` and the **Edit** tool to append the entry — do not shell out to `grep`/`cat`/`echo`. The skill pre-approves Read/Edit/Write on `.gitignore` but not arbitrary Bash patterns over it, so the dedicated tools avoid an unnecessary permission prompt.
 
 All requests use `Authorization: Bearer {key}` header.
 
@@ -97,7 +99,14 @@ Parse the response body — do not rely on the HTTP status code (it's 400 for al
 
 **Status updates**: While polling, give the user a brief progress note every 2–3 polls (e.g., "Still waiting for approval…"). Don't narrate every single poll.
 
-**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), write it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Saved your new API key to `.greenflash` — you can review or revoke it at https://www.greenflash.ai/app/settings/developers." Don't predict the key name in the confirmation; it's derived server-side from the signed-in user.
+**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), save it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Saved your new API key to `.greenflash` — you can review or revoke it at https://www.greenflash.ai/app/settings/developers." Don't predict the key name in the confirmation; it's derived server-side from the signed-in user.
+
+**File handling (rotation case)**: `.greenflash` may already exist if the user is rotating a key. To avoid the "File has not been read yet" error from Write, follow this order:
+
+1. Read `.greenflash` first — if it exists, use **Edit** (replace the old key with the new one).
+2. If Read returns "file does not exist", use **Write** to create it.
+
+Don't attempt Write directly when the file might exist; it costs an extra tool call when it errors out.
 
 ### Using the key in curl commands
 

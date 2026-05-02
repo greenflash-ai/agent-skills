@@ -55,6 +55,7 @@ Classify the user's question into one of these workflows:
 | Correcting an analysis, "Greenflash got this wrong", updating product context, adding domain knowledge | `/greenflash:greenflash-update-context` |
 | Setting up Greenflash, SDK setup, onboarding, getting started | `/greenflash:greenflash-onboard-unified` |
 | Verifying setup, checking if Greenflash is working, status | `/greenflash:greenflash-verify` |
+| Getting a new API key, rotating the key, OAuth/device flow, re-authenticating | Run the device-code activation flow from the shared config's Authentication section directly — do not delegate to onboard skills (those are for SDK integration, not auth). |
 
 **When intent is ambiguous** (matches multiple workflows, or you're not sure): do NOT guess. Send the question directly to the Chat API as a general question. The Chat agent handles cross-cutting questions well.
 
