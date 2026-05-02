@@ -30,7 +30,7 @@ Always include `client_metadata.client_name` so the activation page can identify
 Optionally include `hostname` and `project` so the activation page can also show the user **which device and project are asking** ("Device: gabes-macbook · Project: greenflash"). Gather these two facts as their own Bash calls:
 
 - **Hostname** — run `hostname` (single command, returns the machine name)
-- **Project** — the basename of the project root (you typically already know this from the cwd in your context; otherwise run `pwd` and take the last segment)
+- **Project** — the basename of the project root (read it from the cwd that's already in your skill context — do not shell out to `pwd`)
 
 Then POST with the body. If for any reason you can't gather hostname/project, omit them — only `client_name` is materially important.
 

@@ -2,7 +2,23 @@
 name: greenflash-onboard-unified
 description: One-command Greenflash setup. Auto-detects your codebase and walks through SDK installation, conversation logging, prompt tracking, agentic messages, and event tracking in one guided flow.
 argument-hint: optional language hint (python or typescript)
-allowed-tools: [Bash, Read, Grep, Glob, Edit, Write, Skill]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
+  - Skill
 license: MIT
 metadata:
   author: greenflash-ai
@@ -139,23 +155,25 @@ Wait for user confirmation before proceeding.
 
 For each approved step, delegate to the corresponding sub-skill. Run them **sequentially** — each step builds on the previous one.
 
+**Context to pass to every sub-skill:** the resolved `productId` from Step 2 and the detected language from Step 3a. Tell the sub-skill these values up front (e.g. *"productId is `<id>`, language is python — don't re-prompt for these"*) so the user isn't asked the same questions over and over across the four sub-skills.
+
 ### 5a. Base SDK Integration
-Invoke `/greenflash:greenflash-onboard` with the detected language.
+Invoke `/greenflash:greenflash-onboard` with the detected language and productId.
 
 After completion, confirm: "SDK is set up and conversation logging is wired in. Moving on to the next step..."
 
 ### 5b. System Prompt Tracking
-Invoke `/greenflash:greenflash-onboard-prompts` with the detected language.
+Invoke `/greenflash:greenflash-onboard-prompts` with the detected language and productId.
 
 After completion, confirm: "System prompt tracking is configured. Moving on..."
 
 ### 5c. Agentic Messages
-Invoke `/greenflash:greenflash-onboard-agentic` with the detected language.
+Invoke `/greenflash:greenflash-onboard-agentic` with the detected language and productId.
 
 After completion, confirm: "Structured message types are set up for your agent workflows. Moving on..."
 
 ### 5d. Business Events
-Invoke `/greenflash:greenflash-onboard-events` with the detected language.
+Invoke `/greenflash:greenflash-onboard-events` with the detected language and productId.
 
 After completion, confirm: "Business event tracking is configured."
 

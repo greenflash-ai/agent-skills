@@ -2,7 +2,22 @@
 name: greenflash-onboard-agentic
 description: Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Upgrades an existing Greenflash integration with richer agent visibility.
 argument-hint: optional language hint (python or typescript)
-allowed-tools: [Bash, Read, Grep, Glob, Edit]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

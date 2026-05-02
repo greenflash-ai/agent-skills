@@ -2,7 +2,32 @@
 name: greenflash-inbox
 description: Triage flagged conversations prioritized by severity. Surfaces interactions needing human attention — guardrail violations, quality issues, and safety flags.
 argument-hint: optional filter (e.g. "guardrail violations", "high severity")
-allowed-tools: [Bash, Read]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read(.greenflash)
+  - Read(**/.greenflash)
+  - Read(.gitignore)
+  - Read(**/.gitignore)
+  - Edit(.greenflash)
+  - Edit(**/.greenflash)
+  - Edit(.gitignore)
+  - Edit(**/.gitignore)
+  - Write(.greenflash)
+  - Write(**/.greenflash)
+  - Write(.gitignore)
+  - Write(**/.gitignore)
+  - Read
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

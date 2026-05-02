@@ -1,8 +1,31 @@
 ---
 name: greenflash-onboard
-description: Integrate the Greenflash SDK into your codebase. 5-6 lines of code, first insight in 5 minutes. Installs the SDK, creates a client, and wires up conversation logging for Python or TypeScript.
+description: Low-level SDK install and conversation logging only. Most users should use greenflash-onboard-unified instead — it auto-detects the codebase and runs the full guided setup, delegating to this skill for the SDK step. Use this directly only when you specifically want JUST conversation logging set up, with no prompts/agentic/events tracking.
 argument-hint: optional language hint (python or typescript)
-allowed-tools: [Bash, Read, Grep, Glob, Edit, Write]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Bash(pip:*)
+  - Bash(pip3:*)
+  - Bash(npm:*)
+  - Bash(pnpm:*)
+  - Bash(yarn:*)
+  - Bash(bun:*)
+  - Bash(uv:*)
+  - Bash(poetry:*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai
@@ -190,6 +213,12 @@ except greenflash.APIError as e:
 - [ ] (Optional) Added `client.users.create(...)` where a stable user ID exists
 - [ ] (Optional) Added `client.organizations.create(...)` where an org ID exists
 
+**Now that conversation logging is wired in, expand coverage:**
+- `/greenflash:greenflash-onboard-prompts` — log system prompts to enable prompt versioning and optimization
+- `/greenflash:greenflash-onboard-agentic` — capture tool calls and reasoning traces for agentic workflows
+- `/greenflash:greenflash-onboard-events` — link conversations to business outcomes (conversions, churn)
+- `/greenflash:greenflash-verify` — confirm everything is flowing end-to-end
+
 ---
 
 ## TypeScript Integration
@@ -323,6 +352,12 @@ try {
 - [ ] (Optional) Added `client.users.create(...)` where a stable user ID exists
 - [ ] (Optional) Added `client.organizations.create(...)` where an org ID exists
 
+**Now that conversation logging is wired in, expand coverage:**
+- `/greenflash:greenflash-onboard-prompts` — log system prompts to enable prompt versioning and optimization
+- `/greenflash:greenflash-onboard-agentic` — capture tool calls and reasoning traces for agentic workflows
+- `/greenflash:greenflash-onboard-events` — link conversations to business outcomes (conversions, churn)
+- `/greenflash:greenflash-verify` — confirm everything is flowing end-to-end
+
 ---
 
 ## Deliverable
@@ -333,9 +368,3 @@ A single PR containing:
 - Optional user/org identification hooks
 - README notes describing env vars and where the logging occurs
 
-## Follow-Up Skills
-
-After the basic integration is working, the user can enhance it with:
-- `/greenflash:greenflash-onboard-agentic` — add structured message types for agent workflows
-- `/greenflash:greenflash-onboard-prompts` — log system prompts for prompt optimization
-- `/greenflash:greenflash-onboard-events` — track business events linked to conversations

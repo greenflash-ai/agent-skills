@@ -2,7 +2,34 @@
 name: greenflash-verify
 description: Verify your Greenflash integration is working: API key, products, SDK installation, client setup, message logging, and data flow. Run after onboarding or to confirm setup health.
 argument-hint: none
-allowed-tools: [Bash, Read, Grep, Glob]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Bash(pip list:*)
+  - Bash(pip3 list:*)
+  - Read(.greenflash)
+  - Read(**/.greenflash)
+  - Read(.gitignore)
+  - Read(**/.gitignore)
+  - Edit(.greenflash)
+  - Edit(**/.greenflash)
+  - Edit(.gitignore)
+  - Edit(**/.gitignore)
+  - Write(.greenflash)
+  - Write(**/.greenflash)
+  - Write(.gitignore)
+  - Write(**/.gitignore)
+  - Read
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai
@@ -137,3 +164,14 @@ Overall: Looking good! Add your API key to .env for production deployments.
 - All pass: "All clear — your Greenflash setup is healthy."
 - Warnings only: "Looking good! [brief note about warnings]"
 - Any failures: "[N] issue(s) to fix. [Most critical action to take first]"
+
+## Suggested Next Steps
+
+After a passing run, suggest natural next moves:
+
+- "Ask your first question with `/greenflash` (e.g. 'how are my products doing?')"
+- "Add prompt-level analytics with `/greenflash:greenflash-onboard-prompts`"
+- "Track agent tool calls and reasoning with `/greenflash:greenflash-onboard-agentic`"
+- "Link conversations to business outcomes with `/greenflash:greenflash-onboard-events`"
+
+After a failing run, the Troubleshooting Guide above already maps each failure pattern to a fix — point the user at the most relevant row and offer to run the suggested skill directly.

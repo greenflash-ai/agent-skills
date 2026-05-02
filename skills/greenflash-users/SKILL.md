@@ -2,7 +2,32 @@
 name: greenflash-users
 description: Understand user behavior from real conversations. Individual lookups, segment health, cohort analysis, and custom segment creation. Identifies frustrated, churning, or high-value users.
 argument-hint: user email/name, segment name, or general question
-allowed-tools: [Bash, Read]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read(.greenflash)
+  - Read(**/.greenflash)
+  - Read(.gitignore)
+  - Read(**/.gitignore)
+  - Edit(.greenflash)
+  - Edit(**/.greenflash)
+  - Edit(.gitignore)
+  - Edit(**/.gitignore)
+  - Write(.greenflash)
+  - Write(**/.greenflash)
+  - Write(.gitignore)
+  - Write(**/.gitignore)
+  - Read
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

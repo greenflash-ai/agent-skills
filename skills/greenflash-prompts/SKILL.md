@@ -2,7 +2,22 @@
 name: greenflash-prompts
 description: Find prompt and model quality issues using real conversation data, with specific optimization recommendations. Can implement prompt fixes and model switches directly in your codebase.
 argument-hint: prompt name/ID, model name, or general question
-allowed-tools: [Bash, Read, Grep, Glob, Edit]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Read
+  - Edit
+  - Write
+  - Grep
+  - Glob
 license: MIT
 metadata:
   author: greenflash-ai

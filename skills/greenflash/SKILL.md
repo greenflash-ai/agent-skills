@@ -2,7 +2,33 @@
 name: greenflash
 description: Entry point for all Greenflash queries. Analyzes real user-agent conversations to surface blockers, failures, and engagement drivers. Auto-detects SDK setup and offers onboarding. Routes to specialized sub-skills based on intent.
 argument-hint: your question (e.g. "how are my products doing?")
-allowed-tools: [Bash, Read, Grep, Glob, Skill]
+allowed-tools:
+  - Bash(curl:*)
+  - Bash(printenv GREENFLASH_API_KEY)
+  - Bash(printenv GREENFLASH_API_URL)
+  - Bash(cat .greenflash*)
+  - Bash(hostname)
+  - Bash(basename:*)
+  - Bash(sleep *)
+  - Bash(open https://*greenflash.ai*)
+  - Bash(xdg-open https://*greenflash.ai*)
+  - Bash(start https://*greenflash.ai*)
+  - Bash(pip list:*)
+  - Read(.greenflash)
+  - Read(**/.greenflash)
+  - Read(.gitignore)
+  - Read(**/.gitignore)
+  - Edit(.greenflash)
+  - Edit(**/.greenflash)
+  - Edit(.gitignore)
+  - Edit(**/.gitignore)
+  - Write(.greenflash)
+  - Write(**/.greenflash)
+  - Write(.gitignore)
+  - Write(**/.gitignore)
+  - Grep
+  - Glob
+  - Skill
 license: MIT
 metadata:
   author: greenflash-ai

@@ -1,13 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(*greenflash.ai/api*)",
-      "Bash(*$GREENFLASH_API_URL*)",
+      "Bash(curl:*)",
       "Bash(cat .greenflash*)",
       "Bash(printenv GREENFLASH_API_KEY)",
       "Bash(printenv GREENFLASH_API_URL)",
-      "Bash(pip list*)",
+      "Bash(pip list:*)",
       "Bash(hostname)",
+      "Bash(basename:*)",
       "Bash(sleep *)",
       "Bash(open https://*greenflash.ai*)",
       "Bash(xdg-open https://*greenflash.ai*)",
