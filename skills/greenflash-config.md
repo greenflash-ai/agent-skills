@@ -8,16 +8,82 @@ Resolve the API key using this priority order:
 
 1. **Environment variable**: Run `printenv GREENFLASH_API_KEY` — if it outputs a non-empty value, use that as the key
 2. **Project config file**: Read the first line of `.greenflash` in the project root (use the Read tool, or `cat .greenflash` via Bash)
-3. **Interactive setup**: If neither exists (or both are empty), prompt the user:
-   - First, check if they have an account: "If you don't have a Greenflash account yet, you can create one at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
-   - Then ask for the key: "I need your Greenflash API key to continue. You can find it at https://www.greenflash.ai/app/settings/developers?section=api-keys"
-   - Wait for the user to provide the key
-   - Once provided, write it to `.greenflash` in the project root
-   - Confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
+3. **Browser activation (preferred)**: If neither exists (or both are empty), run the **device-code activation flow** below. This mints a fresh API key in the browser and saves it to `.greenflash` — no copy/paste required.
+4. **Manual fallback**: Use this only if the device-code endpoint returns 404 (older Greenflash deployment) or the user explicitly prefers it. Direct them to https://www.greenflash.ai/app/settings/developers?section=api-keys, wait for them to paste the key, then write the first line of `.greenflash`.
 
-**Gitignore guard**: Whenever `.greenflash` exists on disk (whether from step 2 or just created in step 3), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
+After any path that produces a key, confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
+
+**Gitignore guard**: Whenever `.greenflash` exists on disk (from step 2, 3, or 4), check that `.gitignore` contains `.greenflash`. If not, append `\n.greenflash` to `.gitignore`. This prevents accidental commits of the API key.
 
 All requests use `Authorization: Bearer {key}` header.
+
+### Device-code activation flow (step 3)
+
+This is an OAuth 2.0 Device Authorization Grant (RFC 8628), the same pattern used by GitHub CLI, gcloud, and others. You orchestrate it directly via curl — no shell loops, no compound commands.
+
+**Step 3a — Initiate.** Single POST to fetch a `device_code` and short `user_code`. Use plain `curl -sS` (without `--fail-with-body`) because the poll endpoint returns 400 with a meaningful body for pending/denied; you'll parse the body either way.
+
+Optionally include `client_metadata` so the activation page can show the user **which device is asking** ("Device: gabes-macbook · Project: greenflash") and so the minted API key gets a useful name in their dashboard. Gather two facts first, each as its own Bash call:
+
+- **Hostname** — run `hostname` (single command, returns the machine name)
+- **Project** — the basename of the project root (you typically already know this from the cwd in your context; otherwise run `pwd` and take the last segment)
+
+Then POST with the body. If for any reason you can't gather the metadata, POST with no body — the endpoint accepts both.
+
+```bash
+curl -sS -H "Accept: application/json" -H "Content-Type: application/json" -d '{"client_metadata":{"hostname":"<host>","project":"<project>"}}' "https://www.greenflash.ai/api/v1/auth/device"
+```
+
+> **Local dev**: replace the host with `$GREENFLASH_API_URL` if it's set.
+
+The successful response shape:
+```json
+{
+  "device_code": "<long opaque>",
+  "user_code": "ABCD-2345",
+  "verification_uri": "https://www.greenflash.ai/activate",
+  "verification_uri_complete": "https://www.greenflash.ai/activate?user_code=ABCD-2345",
+  "expires_in": 300,
+  "interval": 5
+}
+```
+
+The `user_code` uses an unambiguous alphabet — no `0`, `1`, `I`, or `O` will ever appear.
+
+**Failure modes for this call:**
+
+- **Response is HTML, an empty body, a 404**, or anything else not matching this shape → the activation endpoint isn't deployed on this server. Abandon the device flow and fall through to step 4 (manual fallback).
+- **HTTP 429** with body `{"success": false, "error": "Rate limit exceeded", ...}` → you've hit the per-IP rate limit on the initiate endpoint. The response includes a `Retry-After` header in seconds. Tell the user "Greenflash is rate-limiting activation requests from this network — try again in `<Retry-After>` seconds, or paste a key manually." Offer step 4 as an immediate fallback.
+
+**Step 3b — Hand off to the browser.** Print the `verification_uri_complete` URL prominently for the user, then try to open it. Pick the right command for the OS:
+
+- macOS: `open <verification_uri_complete>`
+- Linux: `xdg-open <verification_uri_complete>`
+- Windows / WSL: `start <verification_uri_complete>` (or skip; just rely on the printed URL)
+
+Run the open command as a single Bash call. If it fails, that's fine — the printed URL is the source of truth. Then tell the user:
+
+> "Visit the link above, sign in if needed, and click **Authorize**. I'll wait, then fetch your key."
+
+**Step 3c — Poll.** Call the token endpoint with the `device_code`. The server enforces a 5-second minimum interval. Run `sleep 5` as its own Bash call between polls — never compound it with curl.
+
+```bash
+curl -sS -H "Accept: application/json" -H "Content-Type: application/json" -d '{"device_code":"<paste device_code>"}' "https://www.greenflash.ai/api/v1/auth/device/token"
+```
+
+(`-d` implies `POST`, so no `-X POST` flag — the project rule forbids combining them.)
+
+Parse the response body — do not rely on the HTTP status code (it's 400 for all non-success cases):
+
+- **Body contains `api_key`** → done. Take the value, save to `.greenflash`, run the gitignore guard, continue.
+- **Body is `{"error":"authorization_pending"}`** → user hasn't approved yet. Run `sleep 5`, then poll again. Cap total wait at ~5 minutes (the server-side expiry).
+- **Body is `{"error":"slow_down"}`** → polled too fast. Run `sleep 5`, poll again — do not double the interval.
+- **Body is `{"error":"access_denied"}`** → user clicked Cancel. Stop polling. Tell the user the activation was cancelled; offer to retry or fall back to manual key entry.
+- **Body is `{"error":"expired_token"}`** → code expired or already exchanged. Stop polling. Offer to restart from step 3a.
+
+**Status updates**: While polling, give the user a brief progress note every 2–3 polls (e.g., "Still waiting for approval…"). Don't narrate every single poll.
+
+**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), write it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Created API key 'Claude Code – {today}' in your workspace and saved it to `.greenflash`."
 
 ### Using the key in curl commands
 
