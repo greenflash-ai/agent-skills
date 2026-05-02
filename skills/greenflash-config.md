@@ -23,15 +23,17 @@ This is an OAuth 2.0 Device Authorization Grant (RFC 8628), the same pattern use
 
 **Step 3a — Initiate.** Single POST to fetch a `device_code` and short `user_code`. Use plain `curl -sS` (without `--fail-with-body`) because the poll endpoint returns 400 with a meaningful body for pending/denied; you'll parse the body either way.
 
-Optionally include `client_metadata` so the activation page can show the user **which device is asking** ("Device: gabes-macbook · Project: greenflash") and so the minted API key gets a useful name in their dashboard. Gather two facts first, each as its own Bash call:
+Always include `client_metadata.client_name` so the activation page can identify your tool to the user ("Authorize Claude Code") and brand the minted API key. Without it the page falls back to generic "Authorize API access" copy. Use the canonical brand name of the surface running the skill — e.g. `"Claude Code"`, `"Vercel CLI"`, `"Cursor"`. Don't shorten or improvise.
+
+Optionally include `hostname` and `project` so the activation page can also show the user **which device and project are asking** ("Device: gabes-macbook · Project: greenflash"). Gather these two facts as their own Bash calls:
 
 - **Hostname** — run `hostname` (single command, returns the machine name)
 - **Project** — the basename of the project root (you typically already know this from the cwd in your context; otherwise run `pwd` and take the last segment)
 
-Then POST with the body. If for any reason you can't gather the metadata, POST with no body — the endpoint accepts both.
+Then POST with the body. If for any reason you can't gather hostname/project, omit them — only `client_name` is materially important.
 
 ```bash
-curl -sS -H "Accept: application/json" -H "Content-Type: application/json" -d '{"client_metadata":{"hostname":"<host>","project":"<project>"}}' "https://www.greenflash.ai/api/v1/auth/device"
+curl -sS -H "Accept: application/json" -H "Content-Type: application/json" -d '{"client_metadata":{"client_name":"Claude Code","hostname":"<host>","project":"<project>"}}' "https://www.greenflash.ai/api/v1/auth/device"
 ```
 
 > **Local dev**: replace the host with `$GREENFLASH_API_URL` if it's set.
