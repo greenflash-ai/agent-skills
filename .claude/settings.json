@@ -13,8 +13,17 @@
       "Bash(xdg-open https://*greenflash.ai*)",
       "Bash(start https://*greenflash.ai*)",
       "Read(.greenflash)",
+      "Read(//**/.greenflash)",
       "Write(.greenflash)",
-      "Edit(.greenflash)"
+      "Write(//**/.greenflash)",
+      "Edit(.greenflash)",
+      "Edit(//**/.greenflash)",
+      "Read(.gitignore)",
+      "Read(//**/.gitignore)",
+      "Edit(.gitignore)",
+      "Edit(//**/.gitignore)",
+      "Write(.gitignore)",
+      "Write(//**/.gitignore)"
     ]
   }
 }
