@@ -71,13 +71,15 @@ Open: `<verification_uri_complete from response>`
 
 For example, if the API returns `user_code: "ZPUV-EEF3"` and `verification_uri_complete: "https://www.greenflash.ai/activate?user_code=ZPUV-EEF3"`, your output is the fenced block containing exactly `ZPUV-EEF3` followed by `Open: https://www.greenflash.ai/activate?user_code=ZPUV-EEF3`.
 
-Then try to open the URL automatically. Pick the right command for the OS:
+Then try to open the URL automatically. Pick the right command for the OS and pass the URL as a **single-quoted** literal so it survives `?` and `&` in the query string:
 
-- macOS: `open <verification_uri_complete>`
-- Linux: `xdg-open <verification_uri_complete>`
-- Windows / WSL: `start <verification_uri_complete>` (or skip; just rely on the printed URL)
+- macOS: `open 'https://www.greenflash.ai/activate?user_code=...'`
+- Linux: `xdg-open 'https://www.greenflash.ai/activate?user_code=...'`
+- Windows / WSL: `start 'https://www.greenflash.ai/activate?user_code=...'` (or skip; just rely on the printed URL)
 
-Run the open command as a single Bash call. If it fails, that's fine — the printed URL is the source of truth. Then tell the user:
+Always single-quote the URL. The plugin's permission rules are scoped to `<launcher> 'https://www.greenflash.ai/...'` exactly — unquoted, double-quoted, or non-greenflash URLs will be denied. Run the open command as a single Bash call. If it fails, that's fine — the printed URL is the source of truth.
+
+Then tell the user:
 
 > "Confirm the code above matches what you see in the browser, then click **Authorize**. I'll wait."
 
