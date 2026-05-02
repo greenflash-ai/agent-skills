@@ -57,7 +57,19 @@ The `user_code` uses an unambiguous alphabet — no `0`, `1`, `I`, or `O` will e
 - **Response is HTML, an empty body, a 404**, or anything else not matching this shape → the activation endpoint isn't deployed on this server. Abandon the device flow and fall through to step 4 (manual fallback).
 - **HTTP 429** with body `{"success": false, "error": "Rate limit exceeded", ...}` → you've hit the per-IP rate limit on the initiate endpoint. The response includes a `Retry-After` header in seconds. Tell the user "Greenflash is rate-limiting activation requests from this network — try again in `<Retry-After>` seconds, or paste a key manually." Offer step 4 as an immediate fallback.
 
-**Step 3b — Hand off to the browser.** Print the `verification_uri_complete` URL prominently for the user, then try to open it. Pick the right command for the OS:
+**Step 3b — Hand off to the browser.** Display the `user_code` AND the `verification_uri_complete` URL prominently before opening anything. The user has to **visually match** the code shown on the activation page against what's in the terminal — that's the anti-phishing check, and it only works if the code is easy to see.
+
+Use this exact format, **substituting the actual `user_code` and `verification_uri_complete` values from the step 3a response** — do not literally print the placeholders below:
+
+```
+<user_code from response>
+```
+
+Open: `<verification_uri_complete from response>`
+
+For example, if the API returns `user_code: "ZPUV-EEF3"` and `verification_uri_complete: "https://www.greenflash.ai/activate?user_code=ZPUV-EEF3"`, your output is the fenced block containing exactly `ZPUV-EEF3` followed by `Open: https://www.greenflash.ai/activate?user_code=ZPUV-EEF3`.
+
+Then try to open the URL automatically. Pick the right command for the OS:
 
 - macOS: `open <verification_uri_complete>`
 - Linux: `xdg-open <verification_uri_complete>`
@@ -65,7 +77,7 @@ The `user_code` uses an unambiguous alphabet — no `0`, `1`, `I`, or `O` will e
 
 Run the open command as a single Bash call. If it fails, that's fine — the printed URL is the source of truth. Then tell the user:
 
-> "Visit the link above, sign in if needed, and click **Authorize**. I'll wait, then fetch your key."
+> "Confirm the code above matches what you see in the browser, then click **Authorize**. I'll wait."
 
 **Step 3c — Poll.** Call the token endpoint with the `device_code`. The server enforces a 5-second minimum interval. Run `sleep 5` as its own Bash call between polls — never compound it with curl.
 
@@ -85,7 +97,7 @@ Parse the response body — do not rely on the HTTP status code (it's 400 for al
 
 **Status updates**: While polling, give the user a brief progress note every 2–3 polls (e.g., "Still waiting for approval…"). Don't narrate every single poll.
 
-**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), write it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Created API key 'Claude Code – {today}' in your workspace and saved it to `.greenflash`."
+**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), write it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Saved your new API key to `.greenflash` — you can review or revoke it at https://www.greenflash.ai/app/settings/developers." Don't predict the key name in the confirmation; it's derived server-side from the signed-in user.
 
 ### Using the key in curl commands
 
