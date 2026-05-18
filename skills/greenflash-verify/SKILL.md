@@ -58,7 +58,7 @@ Resolve the API key using the authentication flow in the shared config.
 - If no key is found (no env var, no `.greenflash` file): **[FAIL]** "No API key found. Set `GREENFLASH_API_KEY` in your environment or run `/greenflash:greenflash-onboard-unified` to get started."
 - If a key is found, validate it: `GET {baseUrl}/products?limit=1`
   - **200**: **[PASS]** "API key valid"
-  - **401**: **[FAIL]** "API key is invalid. Double-check your key at https://www.greenflash.ai/app/settings/developers?section=api-keys"
+  - **401**: **[FAIL]** "API key is invalid. Double-check your key at https://www.greenflash.ai/app/settings/connect?section=api-keys"
   - **Network error**: **[FAIL]** "Could not reach the Greenflash API. Check your connection."
 
 If the key is invalid or missing, stop here — remaining checks require a valid key.

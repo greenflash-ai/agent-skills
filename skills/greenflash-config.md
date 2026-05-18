@@ -9,7 +9,7 @@ Resolve the API key using this priority order:
 1. **Environment variable**: Run `printenv GREENFLASH_API_KEY` — if it outputs a non-empty value, use that as the key
 2. **Project config file**: Read the first line of `.greenflash` in the project root (use the Read tool, or `cat .greenflash` via Bash)
 3. **Browser activation (preferred)**: If neither exists (or both are empty), run the **device-code activation flow** below. This mints a fresh API key in the browser and saves it to `.greenflash` — no copy/paste required.
-4. **Manual fallback**: Use this only if the device-code endpoint returns 404 (older Greenflash deployment) or the user explicitly prefers it. Direct them to https://www.greenflash.ai/app/settings/developers?section=api-keys, wait for them to paste the key, then write the first line of `.greenflash`.
+4. **Manual fallback**: Use this only if the device-code endpoint returns 404 (older Greenflash deployment) or the user explicitly prefers it. Direct them to https://www.greenflash.ai/app/settings/connect?section=api-keys, wait for them to paste the key, then write the first line of `.greenflash`.
 
 After any path that produces a key, confirm: "API key saved to .greenflash — you won't need to enter it again for this project."
 
@@ -101,7 +101,7 @@ Parse the response body — do not rely on the HTTP status code (it's 400 for al
 
 **Status updates**: While polling, give the user a brief progress note every 2–3 polls (e.g., "Still waiting for approval…"). Don't narrate every single poll.
 
-**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), save it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Saved your new API key to `.greenflash` — you can review or revoke it at https://www.greenflash.ai/app/settings/developers." Don't predict the key name in the confirmation; it's derived server-side from the signed-in user.
+**Step 3d — Persist.** Once you have an `api_key` (it starts with `gf_`), save it as the first line of `.greenflash`, run the gitignore guard, and confirm: "Saved your new API key to `.greenflash` — you can review or revoke it at https://www.greenflash.ai/app/settings/connect." Don't predict the key name in the confirmation; it's derived server-side from the signed-in user.
 
 **File handling (rotation case)**: `.greenflash` may already exist if the user is rotating a key. To avoid the "File has not been read yet" error from Write, follow this order:
 
@@ -121,7 +121,7 @@ Don't attempt Write directly when the file might exist; it costs an extra tool c
 If the user has no API key and appears to be new to Greenflash, gently suggest creating an account before asking for the key:
 
 - **Signup URL**: https://www.greenflash.ai/sign-up
-- **API key page**: https://www.greenflash.ai/app/settings/developers?section=api-keys
+- **API key page**: https://www.greenflash.ai/app/settings/connect?section=api-keys
 - **Product creation**: https://www.greenflash.ai/app/products/create
 
 This is a suggestion, not a blocker — the user may already have a key from a teammate or another project.
@@ -299,7 +299,7 @@ The inline comment helps future developers understand _why_ a change was made an
 - **401**: branch on the response body's `message` field:
   - `message` starts with `"Authentication required"` → no auth header was sent. The agent skipped resolution; run the interactive setup from the Authentication section now (or invoke `/greenflash:greenflash-onboard-unified`). Do not retry until a key is in place.
   - `message` starts with `"Invalid authorization header"` → the header was malformed (likely an empty `$GREENFLASH_API_KEY` resolved to `Bearer ` with no value). Re-run the Authentication resolution; if the env var is empty, fall through to `.greenflash` or interactive setup.
-  - `message` is `"Invalid API key"` → the key was sent but rejected (wrong, revoked, or deleted). Tell the user: "Your Greenflash API key was rejected. Get a current key at https://www.greenflash.ai/app/settings/developers?section=api-keys and save it to `.greenflash`." Offer to re-run the interactive setup to replace the stored key. Do not retry the original request silently.
+  - `message` is `"Invalid API key"` → the key was sent but rejected (wrong, revoked, or deleted). Tell the user: "Your Greenflash API key was rejected. Get a current key at https://www.greenflash.ai/app/settings/connect?section=api-keys and save it to `.greenflash`." Offer to re-run the interactive setup to replace the stored key. Do not retry the original request silently.
   - Any other 401 body shape: show the raw `message` field and offer to re-run the interactive setup.
 - **403**: "This feature requires a Growth plan or higher. Upgrade at https://www.greenflash.ai/app/settings/billing"
 - **429**: "Rate limit reached. Try again in a few minutes." For analytics endpoints, suggest using `mode=simple` which bypasses rate limiting.
