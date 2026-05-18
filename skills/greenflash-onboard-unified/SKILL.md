@@ -52,7 +52,7 @@ Resolve the API key using the authentication flow in the shared config.
 
 If **no key is found** (no env var, no `.greenflash` file), gently suggest creating an account:
 
-> "It looks like you don't have a Greenflash API key yet. You can create a free account at https://www.greenflash.ai/sign-up — it takes about 30 seconds. Once you're signed up, grab your API key from https://www.greenflash.ai/app/settings/developers?section=api-keys and I'll get you set up."
+> "It looks like you don't have a Greenflash API key yet. You can create a free account at https://www.greenflash.ai/sign-up — it takes about 30 seconds. Once you're signed up, grab your API key from https://www.greenflash.ai/app/settings/connect?section=api-keys and I'll get you set up."
 
 Wait for the user to provide a key. Once provided, follow the standard config flow (write to `.greenflash`, gitignore guard).
 
