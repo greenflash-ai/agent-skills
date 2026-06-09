@@ -136,12 +136,14 @@ This is a suggestion, not a blocker — the user may already have a key from a t
 
 **Use the URL exactly as specified above.** Do not guess alternative subdomains (e.g., `app.greenflash.ai`, `api.greenflash.ai`). Do not verify, probe, or test the URL before making the actual request. Just call it.
 
-**Keep ALL Bash commands clean — no shell redirects or pipes:**
-- **NEVER** append `2>&1`, `2>/dev/null`, `| head`, `| tail`, or any other shell redirects/pipes to ANY command. These contain `>` or `|` characters that break Claude Code's permission pattern matching and cause "Permission denied" errors. This applies to curl commands, cat commands, and everything else.
+**Keep ALL Bash commands clean — no pipes, compound operators, or loops:**
+- **NEVER** use pipes (`|`, `|&`), command chains (`&&`, `||`, `;`), command substitution (`$(...)`, backticks), or `for`/`while` loops. Claude Code evaluates each subcommand around these separators independently, so they fall outside the skill's pre-approved `curl` permission and trigger a prompt for every run. This is the #1 cause of permission friction — one `curl ... | python3` or `for id in ...; do curl ...; done` prompts where a plain `curl` would not.
+- **NEVER** append `2>&1` or `2>/dev/null` — stderr redirects break permission matching.
+- A single stdout redirect to a file is allowed (`curl ... "{url}" > /tmp/gf-result.json`): `>`/`>>` attach to the command, so it stays within the `curl` permission. Use this only when saving bulk results (see Deep Dives & Bulk Investigation); otherwise just let the response print.
 - Use `curl -sS --fail-with-body` for all requests — this suppresses progress bars and only shows the response body (or error body on failure)
 - For SSE streams, use `curl -sS -N` (unbuffered) — do not add `-v` or `--verbose`
 - Never use `-X POST` when `-d` is present (curl infers POST automatically)
-- curl commands must end with the URL as the final argument — nothing after it
+- curl commands must end with the URL as the final argument — nothing after it except, optionally, a single `> file` redirect (see above)
 - Do not announce or narrate the API call (no "Let me verify the endpoint" or "Checking API accessibility"). Just make the request silently and present the result
 
 **If a request fails:** Show the HTTP status code and error message from the response body. Do not retry with verbose flags or alternative URLs — follow the error handling rules below instead.
@@ -174,6 +176,20 @@ curl -sS -N \
 - `error` — `{ error, code }` — surface to user
 
 **Presenting SSE output:** Parse the raw SSE stream yourself — do not show the raw `event:` / `data:` lines to the user. Show only the progress steps and the final concatenated response text. If the stream returns an error event, show the error message, not the raw SSE frame.
+
+## Deep Dives & Bulk Investigation
+
+When the user asks for a broad investigation — "analyze the last 30–50 conversations", "what are the gaps across recent conversations", an audit, or any cross-conversation pattern — do **not** hand-pull and parse dozens of records. That path reaches for loops, pipes, and ad-hoc `python3`/`jq` parsing, every one of which trips a permission prompt (see Request Execution Rules) and burns turns.
+
+1. **Lead with the Chat API.** It runs the analysis server-side across many conversations in a single call and returns a synthesized, cited answer. One `POST /chat` (see Chat API Pattern) answers most "deep dive" questions — ask a specific question ("Across the last 50 conversations for `<product>`, what are the top recurring failures, who is affected, and the supporting evidence?") rather than fetching and crunching the raw data yourself. For diagnosis/health framings, the `greenflash-diagnose` and `greenflash-health` skills wrap this.
+
+2. **Only drop to raw records when you genuinely need them** — verbatim transcripts, exact IDs, or independent cross-checking of a number the Chat API gave you. Then stay permission-safe:
+   - Fetch the list with ONE paginated `curl` (see Pagination) and read the IDs from the response.
+   - Fetch each interaction you need with its **own** clean `curl` (`GET /interactions/{id}`). Issue several as separate tool calls in the same turn — do **not** wrap them in a `for`/`while` loop or chain them with `&&`/`;`.
+   - To work over a large payload, redirect that single curl to a temp file (`curl ... "{url}/interactions/{id}" > /tmp/gf-{id}.json`, which stays within the `curl` permission) and inspect it with the **Read tool** — never `cat ... | ...`, `grep`, `head`, or a `python3` pipe.
+   - Reason over the JSON yourself; you do not need `jq`/`python3` to filter or count it.
+
+3. **Scope tightly.** Use list query params (`page`, `limit`, date filters) to pull only what you need. Pulling hundreds of full transcripts is slow and almost never necessary — the Chat API already aggregates.
 
 ## Message Window Management
 

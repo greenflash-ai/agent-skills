@@ -27,6 +27,30 @@ A few things to know:
 
 No environment setup required. On first run, the skill activates a fresh API key for you via OAuth — it opens a browser tab, you click **Authorize**, and the key is saved to a gitignored `.greenflash` file in the project. If you can't open a browser (headless, remote SSH), you'll get a paste-key fallback automatically.
 
+## Permissions
+
+Each skill declares the exact tools it needs in its `allowed-tools` frontmatter (`curl` to the Greenflash API, reading/writing the `.greenflash` credentials file, opening the activation URL), so **normal use in Claude Code runs without permission prompts**.
+
+Claude Code plugins can't grant permissions on your behalf, so for a totally prompt-free experience across every project — or when driving these skills from another agent — add the same allowlist to your `~/.claude/settings.json` (or a project `.claude/settings.json`):
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(printenv GREENFLASH_API_KEY)",
+      "Bash(printenv GREENFLASH_API_URL)",
+      "Bash(cat .greenflash*)",
+      "Read(//**/.greenflash)",
+      "Write(//**/.greenflash)",
+      "Edit(//**/.greenflash)"
+    ]
+  }
+}
+```
+
+**Deep dives stay within this allowlist by design.** A broad investigation ("analyze my last 50 conversations") is answered by a single Chat API call, not by hand-pulling and parsing records — so it needs no extra permissions. When raw records are required, the skills fetch them with individual `curl` calls and inspect the saved output with the Read tool, deliberately avoiding the pipes, loops, and `python3`/`jq` pipelines that would otherwise prompt. See `skills/greenflash-config.md` → *Deep Dives & Bulk Investigation*.
+
 ## Skills
 
 | Skill                 | Description                                                                                                                           |
