@@ -28,7 +28,7 @@ metadata:
 
 # Greenflash Unified Onboarding
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read `greenflash-config.md` from the `greenflash` skill — the entry skill, installed alongside this one (`${CLAUDE_SKILL_DIR}/../greenflash/greenflash-config.md` in Claude Code) — for authentication, API patterns, and error handling.
 
 ## Purpose
 
@@ -50,11 +50,13 @@ This skill walks the user through a complete Greenflash setup in one guided flow
 
 Resolve the API key using the authentication flow in the shared config.
 
-If **no key is found** (no env var, no `.greenflash` file), gently suggest creating an account:
+If **no key is found** (no env var, no `.greenflash` file), this is not a blocker — mint one in the browser. Tell the user:
 
-> "It looks like you don't have a Greenflash API key yet. You can create a free account at https://www.greenflash.ai/sign-up — it takes about 30 seconds. Once you're signed up, grab your API key from https://www.greenflash.ai/app/settings/connect?section=api-keys and I'll get you set up."
+> "No Greenflash API key found — no problem, I can set one up through your browser. I'll show you a short code, you click **Authorize**, and I'll save the key locally (no copy/paste). If you don't have a Greenflash account yet, create a free one first at https://www.greenflash.ai/sign-up — it takes about 30 seconds."
 
-Wait for the user to provide a key. Once provided, follow the standard config flow (write to `.greenflash`, gitignore guard).
+Then run the **device-code activation flow** from the shared config's Authentication section (step 3). It saves the key to `.greenflash` and runs the gitignore guard.
+
+Only fall back to manual key entry (the user pastes a key from https://www.greenflash.ai/app/settings/connect?section=api-keys) if the device endpoint is unavailable, the user can't open a browser, or they explicitly prefer it — per the shared config's step 4.
 
 **Validate the key:** Call `GET {baseUrl}/products?limit=1`.
 - **200**: Key is valid — proceed
@@ -68,15 +70,17 @@ If the key is invalid, do not proceed. Wait for a valid key.
 
 Call `GET {baseUrl}/products` to list the user's products.
 
+Products are created in the Greenflash app only — there is no API for it (see Product Creation (App-Only) in the shared config). Never attempt `POST /products`.
+
 If **no products exist** (empty array):
 
-> "You'll need a Greenflash product to start logging conversations. Create one at https://www.greenflash.ai/app/products/create — just give it a name (e.g., 'Customer Support Bot' or 'Sales Assistant') and you'll get a product ID."
+> "You'll need a Greenflash product to start logging conversations. Products are created in the Greenflash app (the API can't create them): https://www.greenflash.ai/app/products/create — just give it a name (e.g., 'Customer Support Bot' or 'Sales Assistant'). Tip: create one product per environment — e.g. 'Support Bot (dev)' and 'Support Bot' — so dev and staging traffic doesn't pollute your production analytics."
 
-Wait for the user to confirm they've created a product, then re-check `GET {baseUrl}/products`.
+Try to open the URL automatically using the same single-quoted launcher pattern as the activation flow. Wait for the user to confirm they've created the product(s), then re-check `GET {baseUrl}/products` and read the new ID(s) from the response — don't ask the user to paste product IDs.
 
-If **one product exists**, use that product ID automatically.
+If **one product exists**, use that product ID automatically — unless the user is wiring up a dev or staging environment and the existing product looks like production. In that case, suggest creating a separate per-environment product (same flow as above) so this environment gets its own ID.
 
-If **multiple products exist**, ask the user which product this codebase corresponds to. List the product names and let them choose.
+If **multiple products exist**, ask the user which product this codebase (and environment) corresponds to. List the product names and let them choose — teams often have one product per environment, so the dev/staging-named product is usually the right pick for a local setup.
 
 Store the selected `product_id` — the sub-skills will need it.
 

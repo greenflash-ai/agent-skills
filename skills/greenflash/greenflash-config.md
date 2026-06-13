@@ -118,13 +118,25 @@ Don't attempt Write directly when the file might exist; it costs an extra tool c
 
 ## Account Creation
 
-If the user has no API key and appears to be new to Greenflash, gently suggest creating an account before asking for the key:
+If the user has no API key and appears to be new to Greenflash, gently suggest creating an account first:
 
 - **Signup URL**: https://www.greenflash.ai/sign-up
-- **API key page**: https://www.greenflash.ai/app/settings/connect?section=api-keys
-- **Product creation**: https://www.greenflash.ai/app/products/create
+
+After signup, do **not** send them to the API-keys settings page to copy a key — run the device-code activation flow (Authentication step 3) instead. It mints and saves the key with one browser click. The manual key page (https://www.greenflash.ai/app/settings/connect?section=api-keys) is the fallback only (step 4).
 
 This is a suggestion, not a blocker — the user may already have a key from a teammate or another project.
+
+## Product Creation (App-Only)
+
+The public API does **not** support creating products — there is no `POST /products` endpoint. Never attempt one; it will fail. Products are created in the Greenflash app, either through one of the in-app onboarding flows or directly at:
+
+- **Product creation**: https://www.greenflash.ai/app/products/create
+
+When the user needs a product (or another product):
+
+1. Send them to the URL above — give it a name and they get a product ID. You can try to open the URL automatically using the same single-quoted launcher pattern as the activation flow (`open '...'` / `xdg-open '...'` / `start '...'`).
+2. Recommend **one product per environment** — e.g. `My App (dev)`, `My App (staging)`, `My App` — so dev and test traffic doesn't pollute production analytics. This is the documented best practice.
+3. Once the user confirms they've created it, re-run `GET {baseUrl}/products` and read the new ID from the response — don't ask the user to paste product IDs.
 
 ## API Base URL
 
@@ -238,7 +250,7 @@ curl -sS --fail-with-body \
 ```
 
 For creating resources:
-- `POST {baseUrl}/{resource}`
+- `POST {baseUrl}/{resource}` — only where a POST endpoint is documented (e.g. `POST /segments`). Products **cannot** be created via the API — see Product Creation (App-Only).
 - Headers: `Authorization: Bearer {key}`, `Content-Type: application/json`
 - Returns 201 on success
 

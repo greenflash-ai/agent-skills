@@ -39,7 +39,7 @@ metadata:
 
 # Greenflash Ticket Creation
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read `greenflash-config.md` from the `greenflash` skill — the entry skill, installed alongside this one (`${CLAUDE_SKILL_DIR}/../greenflash/greenflash-config.md` in Claude Code) — for authentication, API patterns, and error handling.
 
 ## What This Does
 

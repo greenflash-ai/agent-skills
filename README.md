@@ -83,6 +83,17 @@ If you're running the Greenflash API locally, set `GREENFLASH_API_URL` to overri
 export GREENFLASH_API_URL=http://localhost:3000/api/v1
 ```
 
+## Shared Config (contributors)
+
+`skills/greenflash/greenflash-config.md` is the single canonical shared config (authentication, API patterns, error handling) — exactly one copy in the repo, no duplication, no symlinks. It lives inside the `greenflash` **entry skill** so it ships on every install path (the skills CLI installs each skill folder as-is, and all skills land as siblings under one directory).
+
+Each skill reads it locally, no network:
+
+- The `greenflash` entry skill reads its own co-located copy.
+- The feature skills (`greenflash-health`, `greenflash-verify`, …) read it from the sibling `greenflash` folder.
+
+This means the feature skills depend on the `greenflash` entry skill being installed alongside them — which the documented installs (`npx skills add greenflash-ai/agent-skills` and the plugin) always do, since both install the whole pack. When editing the config, keep it backward-compatible with already-installed skill versions.
+
 ## Documentation
 
 Full API and plugin documentation: https://docs.greenflash.ai/features/claude-code-skill

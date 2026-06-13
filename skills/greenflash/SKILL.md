@@ -38,7 +38,7 @@ metadata:
 
 # Greenflash Router
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling before proceeding.
+Read `greenflash-config.md` in this skill's directory (`${CLAUDE_SKILL_DIR}/greenflash-config.md` in Claude Code) for authentication, API patterns, and error handling before proceeding.
 
 ## Setup
 

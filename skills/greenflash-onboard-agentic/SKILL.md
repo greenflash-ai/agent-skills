@@ -1,6 +1,6 @@
 ---
 name: greenflash-onboard-agentic
-description: Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Upgrades an existing Greenflash integration with richer agent visibility.
+description: "Log structured message types for agentic workflows: tool calls, reasoning traces, and multi-step chains. Upgrades an existing Greenflash integration with richer agent visibility."
 argument-hint: optional language hint (python or typescript)
 allowed-tools:
   - Bash(curl:*)
@@ -25,7 +25,7 @@ metadata:
 
 # Greenflash Agentic Messages Integration
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read `greenflash-config.md` from the `greenflash` skill — the entry skill, installed alongside this one (`${CLAUDE_SKILL_DIR}/../greenflash/greenflash-config.md` in Claude Code) — for authentication, API patterns, and error handling.
 
 ## Purpose
 

@@ -37,7 +37,7 @@ metadata:
 
 # Greenflash Product Context Update
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read `greenflash-config.md` from the `greenflash` skill — the entry skill, installed alongside this one (`${CLAUDE_SKILL_DIR}/../greenflash/greenflash-config.md` in Claude Code) — for authentication, API patterns, and error handling.
 
 ## What This Does
 
@@ -103,7 +103,7 @@ Otherwise, pick from the list:
 - Call `GET {baseUrl}/products`
 - If exactly one product exists, use it (still confirm with the user by name).
 - If multiple, list product names and IDs and ask the user which one this correction applies to.
-- If zero products: "You don't have any Greenflash products yet. Create one at https://www.greenflash.ai/app/products/create before updating context."
+- If zero products: "You don't have any Greenflash products yet. Create one in the Greenflash app at https://www.greenflash.ai/app/products/create before updating context (products are app-created only — the API can't create them)."
 
 ### 3. Build the request
 
