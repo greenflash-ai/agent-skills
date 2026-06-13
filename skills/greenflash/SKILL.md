@@ -38,7 +38,7 @@ metadata:
 
 # Greenflash Router
 
-Read the shared Greenflash config for authentication, API patterns, and error handling before proceeding. In Claude Code it lives at `${CLAUDE_SKILL_DIR}/../greenflash-config.md`. If that file is not present (e.g. installed via `npx skills add`, which isolates each skill folder), fetch it once from https://raw.githubusercontent.com/greenflash-ai/agent-skills/main/skills/greenflash-config.md and read that instead.
+Read `greenflash-config.md` in this skill's directory (`${CLAUDE_SKILL_DIR}/greenflash-config.md` in Claude Code) for authentication, API patterns, and error handling before proceeding.
 
 ## Setup
 

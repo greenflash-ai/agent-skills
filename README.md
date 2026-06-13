@@ -85,12 +85,14 @@ export GREENFLASH_API_URL=http://localhost:3000/api/v1
 
 ## Shared Config (contributors)
 
-`skills/greenflash-config.md` is the single canonical shared config (authentication, API patterns, error handling) — there is exactly one copy in the repo. Each skill reads it via a two-path reference in its `SKILL.md`:
+`skills/greenflash/greenflash-config.md` is the single canonical shared config (authentication, API patterns, error handling) — exactly one copy in the repo, no duplication, no symlinks. It lives inside the `greenflash` **entry skill** so it ships on every install path (the skills CLI installs each skill folder as-is, and all skills land as siblings under one directory).
 
-- **Claude Code (plugin install):** the whole `skills/` tree ships together, so the skill reads `${CLAUDE_SKILL_DIR}/../greenflash-config.md` locally — no network needed.
-- **Skills CLI (`npx skills add`) / other agents:** the CLI installs each skill folder in isolation, so the sibling file is absent. The skill then fetches the canonical copy once from `https://raw.githubusercontent.com/greenflash-ai/agent-skills/main/skills/greenflash-config.md`.
+Each skill reads it locally, no network:
 
-Because this URL is pinned to `main`, edits to the config take effect for CLI-installed agents as soon as they're pushed — no per-skill copies to keep in sync. When editing the config, keep it backward-compatible with already-installed skill versions.
+- The `greenflash` entry skill reads its own co-located copy.
+- The feature skills (`greenflash-health`, `greenflash-verify`, …) read it from the sibling `greenflash` folder.
+
+This means the feature skills depend on the `greenflash` entry skill being installed alongside them — which the documented installs (`npx skills add greenflash-ai/agent-skills` and the plugin) always do, since both install the whole pack. When editing the config, keep it backward-compatible with already-installed skill versions.
 
 ## Documentation
 
