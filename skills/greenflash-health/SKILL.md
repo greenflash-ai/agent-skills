@@ -37,7 +37,7 @@ metadata:
 
 # Greenflash Health & Monitoring
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read the shared Greenflash config for authentication, API patterns, and error handling. In Claude Code it lives at `${CLAUDE_SKILL_DIR}/../greenflash-config.md`. If that file is not present (e.g. installed via `npx skills add`, which isolates each skill folder), fetch it once from https://raw.githubusercontent.com/greenflash-ai/agent-skills/main/skills/greenflash-config.md and read that instead.
 
 ## Default Behavior
 
@@ -78,7 +78,7 @@ These follow-ups continue in the same Chat conversation (pass `conversationId` a
 
 If the Chat API response indicates no data is available (empty results, no products, or no conversations):
 
-- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No products at all**: "You don't have any products set up yet. Create one in the Greenflash app at https://www.greenflash.ai/app/products/create to get started (products are app-created only — the API can't create them)."
 - **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
 - **All products healthy, nothing flagged**: "All clear — no quality issues, anomalies, or safety concerns detected across your products. Check back after more conversations come in, or try `/greenflash:greenflash-inbox` to review flagged conversations."
 

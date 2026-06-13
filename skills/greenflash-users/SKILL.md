@@ -37,7 +37,7 @@ metadata:
 
 # Greenflash User & Segment Intelligence
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read the shared Greenflash config for authentication, API patterns, and error handling. In Claude Code it lives at `${CLAUDE_SKILL_DIR}/../greenflash-config.md`. If that file is not present (e.g. installed via `npx skills add`, which isolates each skill folder), fetch it once from https://raw.githubusercontent.com/greenflash-ai/agent-skills/main/skills/greenflash-config.md and read that instead.
 
 ## Default Behavior
 
@@ -94,7 +94,7 @@ Continue in the same Chat conversation for all follow-ups.
 
 If the Chat API response indicates no data is available:
 
-- **No products at all**: "You don't have any products set up yet. Create one at https://www.greenflash.ai/app/products/create to get started."
+- **No products at all**: "You don't have any products set up yet. Create one in the Greenflash app at https://www.greenflash.ai/app/products/create to get started (products are app-created only — the API can't create them)."
 - **No conversations logged yet**: "Your Greenflash setup looks good — data will start appearing within about 5 minutes of your first conversation. Run your app and send a test message to get started."
 - **No users found**: "No users found matching that query. Make sure `external_user_id` is being passed in your SDK calls — check with `/greenflash:greenflash-verify`."
 - **No segments exist**: "No custom segments set up yet. Try creating one: `/greenflash:greenflash-users create a segment for frustrated users`"

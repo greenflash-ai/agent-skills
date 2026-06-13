@@ -1,6 +1,6 @@
 ---
 name: greenflash-verify
-description: Verify your Greenflash integration is working: API key, products, SDK installation, client setup, message logging, and data flow. Run after onboarding or to confirm setup health.
+description: "Verify your Greenflash integration is working: API key, products, SDK installation, client setup, message logging, and data flow. Run after onboarding or to confirm setup health."
 argument-hint: none
 allowed-tools:
   - Bash(curl:*)
@@ -39,7 +39,7 @@ metadata:
 
 # Greenflash Integration Verification
 
-Read `${CLAUDE_SKILL_DIR}/../greenflash-config.md` for authentication, API patterns, and error handling.
+Read the shared Greenflash config for authentication, API patterns, and error handling. In Claude Code it lives at `${CLAUDE_SKILL_DIR}/../greenflash-config.md`. If that file is not present (e.g. installed via `npx skills add`, which isolates each skill folder), fetch it once from https://raw.githubusercontent.com/greenflash-ai/agent-skills/main/skills/greenflash-config.md and read that instead.
 
 ## Purpose
 
@@ -58,7 +58,7 @@ Resolve the API key using the authentication flow in the shared config.
 - If no key is found (no env var, no `.greenflash` file): **[FAIL]** "No API key found. Set `GREENFLASH_API_KEY` in your environment or run `/greenflash:greenflash-onboard-unified` to get started."
 - If a key is found, validate it: `GET {baseUrl}/products?limit=1`
   - **200**: **[PASS]** "API key valid"
-  - **401**: **[FAIL]** "API key is invalid. Double-check your key at https://www.greenflash.ai/app/settings/connect?section=api-keys"
+  - **401**: **[FAIL]** "API key is invalid. I can mint a fresh one through your browser (device-code activation flow from the shared config), or you can double-check your key at https://www.greenflash.ai/app/settings/connect?section=api-keys"
   - **Network error**: **[FAIL]** "Could not reach the Greenflash API. Check your connection."
 
 If the key is invalid or missing, stop here — remaining checks require a valid key.
@@ -68,7 +68,7 @@ If the key is invalid or missing, stop here — remaining checks require a valid
 Call `GET {baseUrl}/products` to list the user's products.
 
 - **Non-empty array**: **[PASS]** "Found N product(s): [list product names]"
-- **Empty array**: **[FAIL]** "No products found. Create one at https://www.greenflash.ai/app/products/create — you'll need a product ID to start logging conversations."
+- **Empty array**: **[FAIL]** "No products found. Products are created in the Greenflash app (the API can't create them): https://www.greenflash.ai/app/products/create — you'll need a product ID to start logging conversations. Tip: create one product per environment (dev/staging/prod)."
 
 If no products exist, stop here — the SDK requires a `product_id`.
 
