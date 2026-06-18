@@ -62,13 +62,19 @@ When the user asks for evidence (e.g., "show me an example conversation"):
 1. Check authentication per shared config
 2. Send the diagnostic question to `POST {baseUrl}/chat`
 3. Stream SSE events with progress indicators
-4. Present issues as a prioritized list with severity, impact, and resolution steps
+4. Present issues as a prioritized list with severity, impact, and resolution steps, following the shared config's **Answer Contract & Presentation** section — lead with the worst problem, keep it tight, link evidence conversations (never bare UUIDs), and make the next move the fix offer below
 
 ## Implementation
 
 After presenting a diagnosis, offer to implement the fix directly. Not just what's wrong, but what to change. Ask the user: **"Want me to implement this fix?"**
 
-If yes, use tools to make the changes:
+If yes, **deep-dive for the specifics before touching code** — fix from evidence, not from the summary (see the shared config's *Answer Contract & Presentation → Tight summary, deep investigation* and *Deep Dives & Bulk Investigation*):
+
+1. Pull the failing conversation(s) in full — `getConversationDetail` (continue the same Chat conversation) or REST `GET {baseUrl}/interactions/{id}` — and read the exact tool call, its arguments, the error text, and where the flow actually broke.
+2. Confirm the precise failure mode and root cause from that evidence. Don't infer it from the one-line summary; if several conversations share the failure, sample a few to be sure it's the same cause.
+3. Locate the matching code in the project with Grep/Glob, read it, and reconcile what the transcript shows against what the code does — so the change addresses the real defect, not a guess.
+
+Then use tools to make the changes:
 
 - **Failing tool / broken code path**: Use Grep and Glob to find the relevant source code in the local project. Read the file, identify the bug or misconfiguration, and use Edit to fix it. Show a diff summary of what changed.
 - **Prompt quality issue**: Locate the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or config references). Edit the prompt text directly — add guardrails, improve instructions, fix hallucination-prone sections.

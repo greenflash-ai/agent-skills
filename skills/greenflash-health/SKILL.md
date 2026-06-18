@@ -61,7 +61,7 @@ When the user provides a UUID:
 3. Stream SSE events:
    - Show `[step N] displayName...` for each `tool_call`
    - Concatenate `text_delta` into the response
-4. On `done`, store `conversationId` and present the response
+4. On `done`, store `conversationId` and present the response per the shared config's **Answer Contract & Presentation** section — lead with the takeaway, keep it tight, link entities (never bare UUIDs), and end with one useful follow-up. Don't re-expand the server's answer into a longer report.
 
 ## Guided Follow-ups
 

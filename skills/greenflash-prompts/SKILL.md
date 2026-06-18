@@ -55,13 +55,19 @@ When the user asks for a prompt's content (not analytics), use REST directly:
 2. Determine query type: general overview, specific prompt, specific model, or content lookup
 3. For analytics: send to Chat API
 4. For content lookup: use REST directly
-5. Stream/present the response
+5. Stream/present the response per the shared config's **Answer Contract & Presentation** section — lead with the finding, keep the analysis tight, link prompts/models (never bare UUIDs), and offer the action below. This applies whether the Chat API synthesized the answer or you assembled it from a REST content lookup.
 
 ## Implementation
 
 After presenting optimization recommendations, offer to implement them directly. Every insight comes with a specific improvement. Ask the user: **"Want me to apply these changes?"**
 
-If yes, use tools to make the edits:
+If yes, **get the specifics first so you make a real change, not a generic one** (see the shared config's *Answer Contract & Presentation → Tight summary, deep investigation*):
+
+1. Pull the prompt's current content (REST `GET {baseUrl}/prompts/{id}`) if you only have the analytics summary — you must edit against the real prompt text, not a paraphrase of it.
+2. Pull the supporting conversation evidence (`getConversationDetail` via Chat, or REST `GET {baseUrl}/interactions/{id}`) for the failures the recommendation is based on, so the edit targets the actual failure mode (exact wording, missing instruction, hallucination trigger).
+3. Locate the prompt/model definition in the codebase with Grep/Glob, read it, and edit against both the evidence and the real code.
+
+Then use tools to make the edits:
 
 - **Prompt quality fix**: Use Grep/Glob to find the prompt file or system prompt definition in the codebase (search for the prompt name, key phrases, or template variables). Edit the prompt text directly — improve instructions, add examples, tighten constraints, remove hallucination-prone phrasing.
 - **Model switch**: Find where the model is configured (env vars, config files, API call parameters) and update the model identifier. Note any cost/latency tradeoffs when making the change.

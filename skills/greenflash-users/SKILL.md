@@ -77,7 +77,7 @@ Segment creation is available on **all plans** — the number of custom segments
 2. Determine query type: segment overview, individual user, specific segment, or segment creation
 3. Send the appropriate question to `POST {baseUrl}/chat`
 4. Stream SSE events with progress indicators
-5. Present the response
+5. Present the response per the shared config's **Answer Contract & Presentation** section — lead with the takeaway, keep it tight, link each user/segment (never bare UUIDs), and end with one useful follow-up
 
 ## Follow-up Patterns
 
