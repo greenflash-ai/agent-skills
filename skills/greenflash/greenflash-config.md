@@ -189,6 +189,27 @@ curl -sS -N \
 
 **Presenting SSE output:** Parse the raw SSE stream yourself — do not show the raw `event:` / `data:` lines to the user. Show only the progress steps and the final concatenated response text. If the stream returns an error event, show the error message, not the raw SSE frame.
 
+## Answer Contract & Presentation
+
+This governs how you present EVERY answer — whether the Chat API synthesized it server-side or you assembled it yourself from REST results. You are briefing a busy product lead, not dumping a database. The in-app Greenflash agent follows the same contract; keep these surfaces consistent.
+
+- **Lead with the answer.** Open with one direct sentence that answers the question — no preamble, no "Great question."
+- **Stay tight by default, expand on request.** Target ~120–180 words for a default answer; a quick factual question gets less. But the budget is a default, not a ceiling: when the user explicitly asks to go deep — "walk me through it", "full detail", "what exactly is failing so I can fix it" — give them the depth they asked for (evidence, exact errors, the reasoning), still leading with the key point. Never a wall of text for a simple question; never withhold detail the user explicitly wants.
+- **One subject.** Answer what was asked. Don't branch into adjacent topics, extra metrics, or a "while I'm here" audit unless the user explicitly asked for the broad picture.
+- **Scope line only when it matters.** If the answer hinges on a period, volume, or filter, name it in one short line (e.g. "Across the last 30 days · 108 conversations"). Skip it for navigational or self-evident answers — don't stamp every reply with one.
+- **Entities are links, never bare UUIDs.** Reference any conversation, user, segment, product, prompt, or model as a markdown link whose text is a human-readable label (the summary, name, or external ID), using a URL the API returned — never a raw UUID. Write `[Rage hangup · Jun 12](https://www.greenflash.ai/app/interactions/<id>)`, not `50db6a1f-… — Rage hangup`. Never fabricate a URL.
+- **Tables are fine here.** Unlike the in-app web panel (a narrow column), your output renders wide — use a small markdown table for a comparison or a ranking when it genuinely aids scanning. For a single value or a short list, prose or bullets still read better; don't force a table.
+- **Grounding.** Every count, percentage, or "X failed" claim must trace to data you actually fetched this turn. Don't invent error messages, numbers, or trends. If something is a hunch, frame it as one ("worth checking whether…").
+- **Tight summary, deep investigation — these are not in tension.** The word budget governs what you SHOW the user, not how much you investigate. Fetch and reason over as much detail as the task needs — full transcripts, exact tool calls and error text, root causes — then distill it into the answer. When the user wants to ACT on what you found (fix code, change a prompt, file a ticket), the depth moves into that work, not into a longer chat reply. Never let the summary cap the fix.
+
+### The next move
+
+End with ONE genuinely useful next move tied to what you found — never a generic "let me know if you need anything else," and never a forced one. If nothing is genuinely useful, stop cleanly. The KIND of next move depends on the skill:
+
+- **Analytical skills** (`greenflash-health`, `greenflash-inbox`, `greenflash-users`): offer a follow-up the user can run in the SAME conversation — keep `conversationId` + `messages` and continue the thread. Make it specific to what surfaced, e.g. "Want me to dig into what's driving that?" or "Want to focus on `<product>`?" These are suggestions the user can act on, not buttons.
+- **Action skills** (`greenflash-diagnose`, `greenflash-prompts`, `greenflash-tickets`, `greenflash-update-context`): the next move is to DO the thing — "Want me to apply this fix?", "Ready to file this ticket?", "Want me to log that correction?" Offer the action, then act on the user's confirmation. Each skill defines its own draft→confirm flow; follow it rather than acting without confirmation.
+  - **When the user takes a fix action, deep-dive before you change anything.** The tight summary is for reading; a real code fix needs the specifics. Pull the full evidence you need — the failing conversation(s) in full (`getConversationDetail` via Chat, or REST `GET {baseUrl}/interactions/{id}`), the exact tool call / arguments / error text, the precise failure mode and root cause — then locate and read the relevant code in the project (Grep/Glob/Read). Ground the change in BOTH the Greenflash evidence and the actual codebase; never patch from the one-line summary alone. The user is working alongside you in their repo — give them a fix they can trust, with the evidence behind it.
+
 ## Deep Dives & Bulk Investigation
 
 When the user asks for a broad investigation — "analyze the last 30–50 conversations", "what are the gaps across recent conversations", an audit, or any cross-conversation pattern — do **not** hand-pull and parse dozens of records. That path reaches for loops, pipes, and ad-hoc `python3`/`jq` parsing, every one of which trips a permission prompt (see Request Execution Rules) and burns turns.

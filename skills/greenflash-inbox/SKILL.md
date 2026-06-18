@@ -55,7 +55,7 @@ When invoked with a filter (e.g., `/greenflash:greenflash-inbox guardrail violat
 1. Check authentication per shared config
 2. Send the inbox question to `POST {baseUrl}/chat`
 3. Stream SSE events with progress indicators
-4. Present the response as a prioritized list
+4. Present the response as a prioritized list, following the shared config's **Answer Contract & Presentation** section — lead with what most needs attention, keep it tight, link each conversation/user (never bare UUIDs), and end with one useful next move
 
 ## Drill-Down
 

@@ -94,7 +94,7 @@ For questions that don't match a workflow, send directly to the Chat API:
 3. Stream SSE events, showing `[step N] displayName...` for tool calls
 4. Concatenate `text_delta` events into the response
 5. On `done`, store `conversationId` for follow-up turns
-6. Present the response to the user
+6. Present the response per the shared config's **Answer Contract & Presentation** section — lead with the answer, keep it tight, link entities (never bare UUIDs), and end with one useful next move
 
 ## Session Management
 
